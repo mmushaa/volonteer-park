@@ -1,0 +1,6 @@
+temp/
+.phcode.json
+.venv/
+venv/
+*.db
+__pycache__/

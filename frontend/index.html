@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <title>ВолонтерПарк - Главная</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" href="/frontend/index.css">
+</head>
+<body>
+    <!-- Главная страница -->
+    <div id="mainPage">
+        <div class="bg-fon-main1">
+            <div class="container-fluid bg-fon-main2">
+                <div class="container">
+                    <div class="row">
+                        <!-- Меню -->
+                        <div class="menu-icon" id="menuButton">
+                            <div class="menu-line"></div>
+                            <div class="menu-line"></div>
+                            <div class="menu-line"></div>
+                        </div>
+                        <div class="sidebar" id="sidebar">
+                            <a href="#" class="menu-item" onclick="showProfilePage()">Профиль</a>
+                            <a href="#" class="menu-item" onclick="showParksPage()">Парки</a>
+                            <a href="/frontend/login.html" class="menu-item">Войти</a>
+                        </div>
+                        
+                        <!-- Заголовок -->
+                        <div class="col-12 text-center white-text fade-in">
+                            <h1 style="font-size: 3.5rem; font-weight: 700; margin-bottom: 20px;">🌿 ВолонтерПарк</h1>
+                            <h6 style="font-size: 1.2rem; margin-bottom: 30px;">Москва 2026</h6>
+                            <p style="font-size: 1.5rem; max-width: 800px; margin: 0 auto;">
+                                Сделаем парки Москвы чище вместе
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid bg-grey">
+            <div class="container">
+                <div class="row py-5">
+                    <div class="col-12 text-center fade-in">
+                        <h5 style="color: #2d5016; margin-bottom: 30px;">Найдите уборку рядом с домом</h5>
+                        <p style="font-size: 1.2rem; color: #555; max-width: 800px; margin: 0 auto 40px;">
+                            Присоединяйтесь к сообществу активных волонтеров, меняйте город к лучшему и получайте бонусы за свою активность!
+                        </p>
+                        
+                        <a href="/frontend/login.html" class="bg-tab">
+                            <h4 style="margin: 0;"><b>ВЫБРАТЬ МЕРОПРИЯТИЕ</b></h4>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid bg-fon-green">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center fade-in">
+                        <h1 style="color: #2d5016; margin-bottom: 60px;">Рейтинг активности</h1>
+                    </div>
+                </div>
+
+                <!-- Подиум топ-3 -->
+                <div class="podium-container fade-in">
+                    <div class="podium-place second-place">
+                        <div class="podium-platform">
+                            <div class="position-badge">2</div>
+                            <div class="user-avatar">⭐</div>
+                            <div class="user-name">Иван Сидоров</div>
+                            <div class="user-stats">12 мероприятий</div>
+                            <div class="user-score">96 часов</div>
+                        </div>
+                    </div>
+
+                    <div class="podium-place first-place">
+                        <div class="podium-platform">
+                            <div class="position-badge">1</div>
+                            <div class="user-avatar">👑</div>
+                            <div class="user-name">Анна Петрова</div>
+                            <div class="user-stats">15 мероприятий</div>
+                            <div class="user-score">120 часов</div>
+                        </div>
+                    </div>
+
+                    <div class="podium-place third-place">
+                        <div class="podium-platform">
+                            <div class="position-badge">3</div>
+                            <div class="user-avatar">🌸</div>
+                            <div class="user-name">Мария Козлова</div>
+                            <div class="user-stats">10 мероприятий</div>
+                            <div class="user-score">80 часов</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Полная таблица рейтинга -->
+                <div class="row mt-5 fade-in">
+                    <div class="col-12">
+                        <div class="rating-table-container">
+                            <table class="rating-table">
+                                <thead>
+                                    <tr>
+                                        <th>Место</th>
+                                        <th style="text-align: left;">Волонтер</th>
+                                        <th>Мероприятий</th>
+                                        <th>Часов</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ratingTableBody">
+                                    <!-- Данные будут загружены через JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-4 fade-in">
+                    <div class="col-12 text-center">
+                        <p style="color: #555; max-width: 600px; margin: 0 auto;">
+                            Топ волонтеров получают специальные привилегии и бонусы. 
+                            Ваше место в рейтинге обновляется после каждого мероприятия!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid bg-black">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 pt-5 pb-5 fade-in">
+                        <h4 style="color: #fff; margin-bottom: 20px;">О проекте</h4>
+                        <p style="max-width: 800px; margin: 0 auto 20px;">
+                            Проект создан с целью помочь эко-волонтерам и активным гражданам, 
+                            которые в короткие сроки смогут найти и отреагировать на заинтересовавшее их мероприятие, 
+                            а также получить за это награду. Реализация проекта напрямую способствует очистке и 
+                            благоустройству парковых зон Москвы.
+                        </p>
+                        <div style="border-top: 1px solid #444; padding-top: 20px; margin-top: 20px;">
+                            <p style="margin: 0;">Над проектом работали: Косова Мария, Сапетко Мария</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Страница профиля -->
+    <div class="profile-page" id="profilePage">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <a class="navbar-brand" href="#" onclick="showMainPage()">🌿 ВолонтерПарк</a>
+                <div class="navbar-nav ml-auto">
+                    <button class="btn btn-outline-light btn-sm" onclick="showMainPage()">
+                        ← На главную
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-12">
+                    <div class="profile-header text-center mb-5 fade-in">
+                        <div class="profile-avatar" style="font-size: 80px; margin-bottom: 15px">👑</div>
+                        <h2 style="color: #1d1b1b;">Анна Петрова</h2>
+                        <p class="text-muted">anna.volunteer@mail.ru</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row fade-in">
+                <div class="col-12">
+                    <div class="stats-card">
+                        <h4 style="color: #112b00; margin-bottom: 20px;">Статистика активности</h4>
+                        <div class="stat-item">
+                            <span>Участий в мероприятиях:</span>
+                            <strong class="stat-value">15</strong>
+                        </div>
+                        <div class="stat-item">
+                            <span>Всего часов волонтерства:</span>
+                            <strong class="stat-value">120</strong>
+                        </div>
+                        <div class="stat-item">
+                            <span>Место в рейтинге:</span>
+                            <strong class="stat-value">1</strong>
+                        </div>
+                        <div class="stat-item">
+                            <span>Волонтер с:</span>
+                            <strong class="stat-value">март 2024</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row fade-in">
+                <div class="col-12 mb-4">
+                    <div class="stats-card">
+                        <h4 style="color: #2d5016; margin-bottom: 20px;">🎁 Мои бонусы</h4>
+
+                        <div class="bonus-stats-grid">
+                            <div class="bonus-stat-card">
+                                <div class="bonus-stat-header">
+                                    <div class="bonus-stat-icon">🚇</div>
+                                    <div class="bonus-stat-info">
+                                        <div class="bonus-stat-title">Транспорт</div>
+                                        <div class="bonus-stat-count">3 из 5</div>
+                                    </div>
+                                </div>
+                                <div class="bonus-progress">
+                                    <div class="progress-bar" style="width: 60%"></div>
+                                </div>
+                                <div class="bonus-stat-desc">До абонемента на 1 день</div>
+                            </div>
+
+                            <div class="bonus-stat-card">
+                                <div class="bonus-stat-header">
+                                    <div class="bonus-stat-icon">⭐</div>
+                                    <div class="bonus-stat-info">
+                                        <div class="bonus-stat-title">Привилегии</div>
+                                        <div class="bonus-stat-count">8/10</div>
+                                    </div>
+                                </div>
+                                <div class="bonus-progress">
+                                    <div class="progress-bar" style="width: 80%"></div>
+                                </div>
+                                <div class="bonus-stat-desc">До волонтера месяца</div>
+                            </div>
+
+                            <div class="bonus-stat-card">
+                                <div class="bonus-stat-header">
+                                    <div class="bonus-stat-icon">🏛️</div>
+                                    <div class="bonus-stat-info">
+                                        <div class="bonus-stat-title">Городские</div>
+                                        <div class="bonus-stat-count">2 доступно</div>
+                                    </div>
+                                </div>
+                                <div class="bonus-stat-available">
+                                    <span class="available-badge">Музеи</span>
+                                    <span class="available-badge">Кафе</span>
+                                </div>
+                                <div class="bonus-stat-desc">Активные промокоды</div>
+                            </div>
+
+                            <div class="bonus-stat-card">
+                                <div class="bonus-stat-header">
+                                    <div class="bonus-stat-icon">🛍️</div>
+                                    <div class="bonus-stat-info">
+                                        <div class="bonus-stat-title">Магазины</div>
+                                        <div class="bonus-stat-count">4 скидки</div>
+                                    </div>
+                                </div>
+                                <div class="bonus-stat-available">
+                                    <span class="available-badge">-15%</span>
+                                    <span class="available-badge">-20%</span>
+                                    <span class="available-badge">-10%</span>
+                                </div>
+                                <div class="bonus-stat-desc">Действующие предложения</div>
+                            </div>
+                        </div>
+
+                        <div class="bonus-details">
+                            <h6 style="color: #2d5016; margin-bottom: 15px;">📋 Активные бонусы</h6>
+                            <div class="bonus-details-list">
+                                <div class="bonus-detail-item">
+                                    <div class="bonus-detail-icon">🎫</div>
+                                    <div class="bonus-detail-text">
+                                        <strong>2 бесплатные поездки на метро</strong>
+                                        <small>Действуют до 30.12.2024</small>
+                                    </div>
+                                </div>
+                                <div class="bonus-detail-item">
+                                    <div class="bonus-detail-icon">🏛️</div>
+                                    <div class="bonus-detail-text">
+                                        <strong>Бесплатный вход в Парк Горького</strong>
+                                        <small>По QR-коду</small>
+                                    </div>
+                                </div>
+                                <div class="bonus-detail-item">
+                                    <div class="bonus-detail-icon">☕</div>
+                                    <div class="bonus-detail-text">
+                                        <strong>Скидка 15% в кофейнях партнеров</strong>
+                                        <small>Промокод: VOLONTER15</small>
+                                    </div>
+                                </div>
+                                <div class="bonus-detail-item">
+                                    <div class="bonus-detail-icon">🛍️</div>
+                                    <div class="bonus-detail-text">
+                                        <strong>Скидка 20% в Спортмастере</strong>
+                                        <small>Действует до 25.12.2024</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row fade-in">
+                <div class="col-12 mb-4">
+                    <div class="stats-card">
+                        <h4 style="color: #2d5016; margin-bottom: 20px;">📅 Мои мероприятия</h4>
+                        <div class="upcoming-event">
+                            <div class="event-info">
+                                <div class="event-date">Завтра, 10:00-13:00</div>
+                                <div class="event-title">Уборка в Парке Горького</div>
+                                <div class="event-location">Крымский Вал, 9</div>
+                            </div>
+                        </div>
+                        <div class="upcoming-event">
+                            <div class="event-info">
+                                <div class="event-date">15 декабря, 14:00-17:00</div>
+                                <div class="event-title">Уборка в Нескучном саду</div>
+                                <div class="event-location">Ленинский проспект, 20</div>
+                            </div>
+                        </div>
+                        <div class="upcoming-event">
+                            <div class="event-info">
+                                <div class="event-date">25 декабря, 12:00-15:00</div>
+                                <div class="event-title">Предновогодняя уборка в Измайлово</div>
+                                <div class="event-location">Народный проспект, 17</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="parks-page" id="parksPage">
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background: #2a6726ce;">
+            <div class="container">
+                <a class="navbar-brand" href="#" onclick="showMainPage()">🌿 ВолонтерПарк</a>
+                <div class="navbar-nav ml-auto">
+                    <button class="btn btn-outline-light btn-sm" onclick="showMainPage()">
+                        ← Назад на главную
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h1 style="color: #2d5016;">Парки Москвы</h1>
+                    <p class="lead">Откройте для себя зеленые уголки столицы</p>
+                </div>
+            </div>
+
+            <!-- Поиск и фильтры -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="search-section">
+                        <input type="text" id="parkSearch" class="form-control" placeholder="🔍 Поиск парков..." 
+                               style="border-radius: 25px; padding: 12px 20px; border: 2px solid #8bc34a;">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Сетка парков -->
+            <div class="row" id="parksGrid">
+                <!-- Контент будет загружаться динамически -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Страница истории парка -->
+    <div class="park-history-page" id="parkHistoryPage">
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background: #2a6726ce;">
+            <div class="container">
+                <a class="navbar-brand" href="#" onclick="showParksPage()">🌿 Парки Москвы</a>
+                <div class="navbar-nav ml-auto">
+                    <button class="btn btn-outline-light btn-sm" onclick="showParksPage()">
+                        ← Назад к паркам
+                    </button>
+                </div>
+            </div>
+        </nav>
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-12">
+                    <div id="parkHistoryContent">
+                        <!-- Контент будет загружаться динамически -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+    <script src="/frontend/script.js"></script>
+</body>
+</html>
