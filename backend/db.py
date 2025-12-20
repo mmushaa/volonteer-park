@@ -27,6 +27,22 @@ def get_park_data(park_id):
     return data
 
 
+def get_user_by_login(login):
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM users WHERE login=?", (login,))
+    data = cursor.fetchone()
+    return data
+
+
+def create_user(login, password_hash, first_name, last_name):
+    cursor = connection.cursor()
+    cursor.execute(
+        "INSERT INTO users (login, password_hash, first_name, last_name) VALUES (?, ?, ?, ?)",
+        (login, password_hash, first_name, last_name),
+    )
+    connection.commit()
+
+
 def create_db():
     y = input("Пересоздать базу данных? (y/n)")
     if y != "y":
@@ -43,16 +59,18 @@ def create_db():
     connection = sqlite3.connect(DB_NAME)
     cursor = connection.cursor()
 
-    # Создаем таблицу rating
+    # Создаем таблицу users
     cursor.execute(
         """
-        CREATE TABLE rating (
+        CREATE TABLE users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            position INTEGER NOT NULL,
-            name TEXT NOT NULL,
-            avatar TEXT NOT NULL,
-            events INTEGER NOT NULL,
-            hours INTEGER NOT NULL
+            login TEXT UNIQUE NOT NULL,
+            first_name TEXT NOT NULL,
+            last_name TEXT,
+            password_hash TEXT NOT NULL,
+            avatar_emoji TEXT,
+            events INTEGER DEFAULT 0,
+            hours INTEGER DEFAULT 0
         )
     """
     )
@@ -72,29 +90,13 @@ def create_db():
             founded TEXT NOT NULL,
             history TEXT NOT NULL,
             features TEXT NOT NULL,
-            amenities TEXT,  -- JSON строка с удобствами
-            audioguide_description TEXT,  -- Описание аудиогида
-            audioguide_routes TEXT,  -- JSON строка с маршрутами
-            detectable_objects TEXT  -- JSON строка с обнаруживаемыми объектами
+            amenities TEXT,
+            audioguide_description TEXT,
+            audioguide_routes TEXT,
+            detectable_objects TEXT
         )
     """
     )
-
-    # Заполняем таблицу rating данными
-    for item in RATING_DATA:
-        cursor.execute(
-            """
-            INSERT INTO rating (position, name, avatar, events, hours)
-            VALUES (?, ?, ?, ?, ?)
-        """,
-            (
-                item["position"],
-                item["name"],
-                item["avatar"],
-                item["events"],
-                item["hours"],
-            ),
-        )
 
     # Заполняем таблицу parks данными
     for park_key, park_data in PARKS_DATA.items():
@@ -151,92 +153,9 @@ def create_db():
     # Сохраняем изменения
     connection.commit()
     print("База данных успешно создана и заполнена данными!")
-    print(f"Добавлено {len(RATING_DATA)} записей в рейтинг")
     print(f"Добавлено {len(PARKS_DATA)} парков")
 
 
-RATING_DATA = [
-    {"position": 1, "name": "Анна Петрова", "avatar": "👑", "events": 15, "hours": 120},
-    {"position": 2, "name": "Иван Сидоров", "avatar": "⭐", "events": 12, "hours": 96},
-    {"position": 3, "name": "Мария Козлова", "avatar": "🌸", "events": 10, "hours": 80},
-    {"position": 4, "name": "Алексей Иванов", "avatar": "🚀", "events": 9, "hours": 72},
-    {"position": 5, "name": "Елена Смирнова", "avatar": "🌿", "events": 8, "hours": 64},
-    {"position": 6, "name": "Дмитрий Попов", "avatar": "⚡", "events": 7, "hours": 56},
-    {"position": 7, "name": "Ольга Новикова", "avatar": "🌺", "events": 7, "hours": 56},
-    {
-        "position": 8,
-        "name": "Сергей Кузнецов",
-        "avatar": "🏆",
-        "events": 6,
-        "hours": 48,
-    },
-    {
-        "position": 9,
-        "name": "Татьяна Морозова",
-        "avatar": "❄️",
-        "events": 6,
-        "hours": 48,
-    },
-    {"position": 10, "name": "Андрей Волков", "avatar": "🐺", "events": 5, "hours": 40},
-    {
-        "position": 11,
-        "name": "Наталья Зайцева",
-        "avatar": "🐰",
-        "events": 5,
-        "hours": 40,
-    },
-    {
-        "position": 12,
-        "name": "Михаил Лебедев",
-        "avatar": "🦢",
-        "events": 4,
-        "hours": 32,
-    },
-    {
-        "position": 13,
-        "name": "Ирина Соколова",
-        "avatar": "🦅",
-        "events": 4,
-        "hours": 32,
-    },
-    {"position": 14, "name": "Павел Комаров", "avatar": "🐝", "events": 4, "hours": 32},
-    {"position": 15, "name": "Юлия Орлова", "avatar": "🦉", "events": 3, "hours": 24},
-    {
-        "position": 16,
-        "name": "Владимир Егоров",
-        "avatar": "🐻",
-        "events": 3,
-        "hours": 24,
-    },
-    {
-        "position": 17,
-        "name": "Светлана Федорова",
-        "avatar": "🦋",
-        "events": 3,
-        "hours": 24,
-    },
-    {
-        "position": 18,
-        "name": "Дмитрий Медведев",
-        "avatar": "🐾",
-        "events": 2,
-        "hours": 16,
-    },
-    {
-        "position": 19,
-        "name": "Марина Алексеева",
-        "avatar": "🐬",
-        "events": 2,
-        "hours": 16,
-    },
-    {
-        "position": 20,
-        "name": "Артем Дмитриев",
-        "avatar": "🦁",
-        "events": 2,
-        "hours": 16,
-    },
-]
 
 PARKS_DATA = {
     "gorky": {

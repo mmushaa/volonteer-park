@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ВолонтерПарк - регистрация</title>
+    <link rel="stylesheet" href="/frontend/login.css">
+</head>
+
+<body>
+    <div class="login-page" id="loginPage">
+        <div class="login-container fade-in">
+            <div class="login-header">
+                <h3>🌿 ВолонтерПарк</h3>
+                <p class="mb-0">Создайте аккаунт</p>
+            </div>
+            
+            <div class="login-form">
+                <p class="error" style="color: rgb(170, 58, 58);">{{ error }}</p>
+                <form id="loginForm" action="/register" method="post">
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Логин" required name="login">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Имя" required name="first_name">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Фамилия" required name="last_name">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" placeholder="Пароль" required name="password">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" placeholder="Повтор пароля" required name="password_repeat">
+                    </div>
+                    <button type="submit" class="btn-login">Создать аккаунт</button>
+                </form>
+                
+                <div class="login-links">
+                    <a href="/login">Уже есть аккаунт? Войти</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
