@@ -4,6 +4,7 @@ import json
 
 DB_NAME = "app.db"
 connection = sqlite3.connect(DB_NAME, check_same_thread=False)
+connection.row_factory = sqlite3.Row
 
 
 def get_rating_data():

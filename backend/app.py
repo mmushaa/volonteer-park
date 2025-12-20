@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for
-from db import get_rating_data, get_all_parks_data, create_user
+from db import get_rating_data, get_all_parks_data, create_user, get_user_by_login
 from utils import validate_user
+from werkzeug.security import generate_password_hash, check_password_hash
+
 
 app = Flask(__name__, template_folder="../frontend", static_folder="../frontend")
 
@@ -26,7 +28,25 @@ def register():
             create_user(login, password_hash, first_name, last_name)
         except ValueError as error:
             return render_template("register.html", error=error)
-        
+
+        return redirect(url_for("index"))
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "GET":
+        return render_template("login.html")
+    else:
+        login = request.form.get("login")
+        password = request.form.get("password")
+
+        user = get_user_by_login(login)
+        if user is None:
+            return render_template("login.html", error="Неверный логин или пароль")
+
+        if not check_password_hash(user["password_hash"], password):
+            return render_template("login.html", error="Неверный логин или пароль")
+
         return redirect(url_for("index"))
 
 
