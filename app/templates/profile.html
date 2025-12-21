@@ -1,45 +1,22 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ВолонтерПарк</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-    <link rel="stylesheet" href="/volonteer-park/frontend/login.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/login.css">
 </head>
-<body>
-    <!-- Страница входа -->
-    <div class="login-page" id="loginPage">
-        <div class="login-container fade-in">
-            <div class="login-header">
-                <h3>🌿ВолонтерПарк</h3>
-                <p class="mb-0">Войдите в аккаунт</p>
-            </div>
-            
-            <div class="login-form">
-                <form id="loginForm">
-                    <div class="form-group">
-                        <input type="email" class="form-control" placeholder="Email" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control" placeholder="Пароль" required>
-                    </div>
-                    <button type="submit" class="btn-login">Войти</button>
-                </form>
-                
-                <div class="login-links">
-                    <a href="#" onclick="showMessage('Функция в разработке')">Создать аккаунт</a>
-                </div>
-            </div>
-        </div>
-    </div>
 
+<body>
     <!-- Страница карты -->
     <div class="map-page" id="mapPage">
         <!-- Навигация -->
         <nav class="navbar navbar-dark">
             <div class="container">
-                <a class="navbar-brand" href="/volonteer-park/frontend">🌿 ВолонтерПарк</a>
+                <a class="navbar-brand" href="/">🌿 ВолонтерПарк</a>
                 <div class="navbar-nav ml-auto">
                     <button class="btn btn-outline-light btn-sm" onclick="showLoginPage()">Выйти</button>
                 </div>
@@ -64,7 +41,7 @@
                     <p>Присоединяйтесь к уборкам в парках Москвы</p>
                 </div>
             </div>
-            
+
             <div class="row">
                 <!-- Карта -->
                 <div class="col-12 mb-4">
@@ -72,53 +49,62 @@
                         <div id="map"></div>
                     </div>
                 </div>
-                
+
                 <!-- Список мероприятий -->
                 <div class="col-12">
                     <div class="events-sidebar">
                         <h5 style="color: #112b00; margin-bottom: 20px;">Ближайшие уборки</h5>
-                        
-                        <div class="event-card" data-lat="55.728955" data-lng="37.603579" onclick="focusOnEvent('gorky')" id="card-gorky">
+
+                        <div class="event-card" data-lat="55.728955" data-lng="37.603579"
+                            onclick="focusOnEvent('gorky')" id="card-gorky">
                             <div class="event-date">25 ноября, 10:00-13:00</div>
                             <h6>Уборка в Парке Горького</h6>
                             <div class="event-location">Крымский Вал, 9</div>
-                            <p style="font-size: 14px; color: #555;">Сбор у главного входа. Взять с собой: пакеты, грабли, перчатки.</p>
+                            <p style="font-size: 14px; color: #555;">Сбор у главного входа. Взять с собой: пакеты,
+                                грабли, перчатки.</p>
                             <div style="display: flex; justify-content: space-between; align-items: center;">
                                 <span style="font-size: 12px; color: #888;"></span>
-                                <button class="btn-volunteer" onclick="event.stopPropagation(); joinEvent('gorky')">Участвовать</button>
+                                <button class="btn-volunteer"
+                                    onclick="event.stopPropagation(); joinEvent('gorky')">Участвовать</button>
                             </div>
                         </div>
-                        
-                        <div class="event-card" data-lat="55.709683" data-lng="37.597258" onclick="focusOnEvent('neskuchny')" id="card-neskuchny">
+
+                        <div class="event-card" data-lat="55.709683" data-lng="37.597258"
+                            onclick="focusOnEvent('neskuchny')" id="card-neskuchny">
                             <div class="event-date">15 декабря, 14:00-17:00</div>
                             <h6>Уборка в Нескучном саду</h6>
                             <div class="event-location">Ленинский проспект, 20</div>
                             <p style="font-size: 14px; color: #555;">Сбор у главного входа. Взять с собой: лопату.</p>
                             <div style="display: flex; justify-content: space-between; align-items: center;">
                                 <span style="font-size: 12px; color: #888;"></span>
-                                <button class="btn-volunteer" onclick="event.stopPropagation(); joinEvent('neskuchny')">Участвовать</button>
+                                <button class="btn-volunteer"
+                                    onclick="event.stopPropagation(); joinEvent('neskuchny')">Участвовать</button>
                             </div>
                         </div>
-                        
-                        <div class="event-card" data-lat="55.791348" data-lng="37.677933" onclick="focusOnEvent('sokolniki')" id="card-sokolniki">
+
+                        <div class="event-card" data-lat="55.791348" data-lng="37.677933"
+                            onclick="focusOnEvent('sokolniki')" id="card-sokolniki">
                             <div class="event-date">20 декабря, 11:00-14:00</div>
                             <h6>Уборка в Сокольниках</h6>
                             <div class="event-location">Сокольнический Вал, 1</div>
                             <p style="font-size: 14px; color: #555;">Сбор у главного входа. Взять с собой: лопату.</p>
                             <div style="display: flex; justify-content: space-between; align-items: center;">
                                 <span style="font-size: 12px; color: #888;"></span>
-                                <button class="btn-volunteer" onclick="event.stopPropagation(); joinEvent('sokolniki')">Участвовать</button>
+                                <button class="btn-volunteer"
+                                    onclick="event.stopPropagation(); joinEvent('sokolniki')">Участвовать</button>
                             </div>
                         </div>
 
-                        <div class="event-card" data-lat="55.787152" data-lng="37.771609" onclick="focusOnEvent('izmaily')" id="card-izmaily">
+                        <div class="event-card" data-lat="55.787152" data-lng="37.771609"
+                            onclick="focusOnEvent('izmaily')" id="card-izmaily">
                             <div class="event-date">25 декабря, 12:00-15:00</div>
                             <h6>Предновогодняя уборка в Измайлово</h6>
                             <div class="event-location">Народный проспект, 17</div>
                             <p style="font-size: 14px; color: #555;">Сбор у главного входа. Взять с собой: лопату.</p>
                             <div style="display: flex; justify-content: space-between; align-items: center;">
                                 <span style="font-size: 12px; color: #888;"></span>
-                                <button class="btn-volunteer" onclick="event.stopPropagation(); joinEvent('izmaily')">Участвовать</button>
+                                <button class="btn-volunteer"
+                                    onclick="event.stopPropagation(); joinEvent('izmaily')">Участвовать</button>
                             </div>
                         </div>
                     </div>
@@ -129,7 +115,8 @@
             <div class="row">
                 <div class="col-12 mt-4">
                     <div class="bonuses-card">
-                        <h4 style="color: #112b00; margin-bottom: 25px; text-align: center;">Бонусы за участие в мероприятиях</h4>
+                        <h4 style="color: #112b00; margin-bottom: 25px; text-align: center;">Бонусы за участие в
+                            мероприятиях</h4>
 
                         <div class="bonuses-grid">
                             <!-- Транспортные бонусы -->
@@ -238,7 +225,8 @@
                         </div>
                         <div class="bonus-footer text-center mt-4">
                             <p style="color: #454545; font-size: 14px; margin: 0;">
-                                <strong>Как получить бонусы:</strong> Участвуйте в мероприятиях, накапливайте активность и получайте бонусы автоматически!
+                                <strong>Как получить бонусы:</strong> Участвуйте в мероприятиях, накапливайте активность
+                                и получайте бонусы автоматически!
                             </p>
                         </div>
                     </div>
@@ -251,11 +239,11 @@
     <div class="profile-page" id="profilePage">
         <nav class="navbar navbar-expand-lg navbar-dark" style="background: #2d5016;">
             <div class="container">
-                <a class="navbar-brand" href="#" onclick="showMapPage()">🌿 ВолонтерПарк</a>
+                <a class="navbar-brand" href="/">🌿 ВолонтерПарк</a>
                 <div class="navbar-nav ml-auto">
-                    <button class="btn btn-outline-light btn-sm" onclick="showMapPage()">
+                    <a class="btn btn-outline-light btn-sm" href="/">
                         ← Назад
-                    </button>
+                    </a>
                 </div>
             </div>
         </nav>
@@ -265,8 +253,8 @@
                 <div class="col-12">
                     <div class="profile-header text-center mb-5">
                         <div class="profile-avatar" style="font-size: 80px; margin-bottom: 15px">👑</div>
-                        <h2 style="color: #1d1b1b;">Анна Петрова</h2>
-                        <p class="text-muted">anna.volunteer@mail.ru</p>
+                        <h2 style="color: #1d1b1b;">{{ first_name }} {{ last_name }}</h2>
+                        <p class="text-muted">{{ login }}</p>
                     </div>
                 </div>
             </div>
@@ -423,7 +411,7 @@
 
     <!-- Яндекс Карты API -->
     <script src="https://api-maps.yandex.ru/2.1/?apikey=ваш_api_ключ&lang=ru_RU" type="text/javascript"></script>
-    
+
     <script>
         let map;
         let placemarks = [];
@@ -453,17 +441,17 @@
             alert('Страница "Парки" уже открыта');
             closeMenu();
         }
-        
+
         // Показать сообщение
         function showMessage(text) {
             alert(text);
         }
-        
+
         // Присоединиться к мероприятию
         function joinEvent(eventId) {
             alert('🎉 Вы успешно записались на мероприятие!');
         }
-        
+
         // Фокусировка на мероприятии
         function focusOnEvent(eventId) {
             const eventData = getEventData(eventId);
@@ -524,7 +512,7 @@
                 return;
             }
 
-            ymaps.ready(function() {
+            ymaps.ready(function () {
                 map = new ymaps.Map('map', {
                     center: [55.7558, 37.6173],
                     zoom: 11,
@@ -532,7 +520,7 @@
                 });
 
                 const eventIds = ['gorky', 'neskuchny', 'sokolniki', 'izmaily'];
-                
+
                 eventIds.forEach(eventId => {
                     const eventData = getEventData(eventId);
                     if (eventData) {
@@ -557,7 +545,7 @@
                             }
                         );
 
-                        placemark.events.add('click', function() {
+                        placemark.events.add('click', function () {
                             document.querySelectorAll('.event-card').forEach(card => card.classList.remove('active'));
                             document.getElementById(`card-${eventId}`).classList.add('active');
                         });
@@ -585,11 +573,11 @@
         }
 
         // Обработка формы входа
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
             e.preventDefault();
             const email = this.querySelector('input[type="email"]').value;
             const password = this.querySelector('input[type="password"]').value;
-            
+
             if (email && password) {
                 showMapPage();
             } else {
@@ -598,21 +586,21 @@
         });
 
         // Инициализация
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             showLoginPage();
-            
+
             const menuButton = document.getElementById('menuButton');
             const sidebar = document.getElementById('sidebar');
-            
+
             if (menuButton && sidebar) {
-                menuButton.addEventListener('click', function(e) {
+                menuButton.addEventListener('click', function (e) {
                     e.stopPropagation();
                     toggleMenu();
                 });
-                
-                document.addEventListener('click', function(e) {
-                    if (sidebar.classList.contains('active') && 
-                        !sidebar.contains(e.target) && 
+
+                document.addEventListener('click', function (e) {
+                    if (sidebar.classList.contains('active') &&
+                        !sidebar.contains(e.target) &&
                         !menuButton.contains(e.target)) {
                         closeMenu();
                     }
@@ -621,4 +609,5 @@
         });
     </script>
 </body>
+
 </html>

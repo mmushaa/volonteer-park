@@ -283,7 +283,6 @@ body {
 
 /* профиль */
 .profile-page {
-    display: none;
     position: fixed;
     top: 0;
     left: 0;
