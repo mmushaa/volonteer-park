@@ -42,6 +42,8 @@ def register():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "GET":
+        if "user_id" in session:
+            return redirect(url_for("profile"))
         return render_template("login.html")
     else:
         login: str = request.form.get("login", "")

@@ -106,6 +106,20 @@ def create_db():
     """
     )
 
+    # Создаем таблицу events
+    cursor.execute(
+        """
+        CREATE TABLE events (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            description TEXT,
+            location TEXT NOT NULL,
+            start_at DATETIME,
+            end_at DATETIME,
+        )
+    """
+    )
+
     # Заполняем таблицу parks данными
     for park_key, park_data in PARKS_DATA.items():
         # Подготавливаем данные для JSON полей
@@ -162,7 +176,6 @@ def create_db():
     connection.commit()
     print("База данных успешно создана и заполнена данными!")
     print(f"Добавлено {len(PARKS_DATA)} парков")
-
 
 
 PARKS_DATA = {
