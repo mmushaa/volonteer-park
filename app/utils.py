@@ -1,5 +1,5 @@
 from werkzeug.security import generate_password_hash, check_password_hash
-from app.db import get_user_by_login
+from app.crud import get_user_by_login
 
 
 def validate_user(login, password, password_repeat):

@@ -1,6 +1,6 @@
 from app import app
 from app.utils import validate_user
-from app.db import (
+from app.crud import (
     get_rating_data,
     get_all_parks_data,
     create_user,
