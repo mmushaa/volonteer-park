@@ -1,10 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for
-from db import get_rating_data, get_all_parks_data, create_user, get_user_by_login
-from utils import validate_user
-from werkzeug.security import generate_password_hash, check_password_hash
+from app import app
+from app.utils import validate_user
+from app.db import get_rating_data, get_all_parks_data, create_user, get_user_by_login
 
+from flask import render_template, request, redirect, url_for
 
-app = Flask(__name__, template_folder="../frontend", static_folder="../frontend")
+from werkzeug.security import check_password_hash
 
 
 @app.route("/")
@@ -37,8 +37,8 @@ def login():
     if request.method == "GET":
         return render_template("login.html")
     else:
-        login = request.form.get("login")
-        password = request.form.get("password")
+        login: str = request.form.get("login", "")
+        password: str = request.form.get("password", "")
 
         user = get_user_by_login(login)
         if user is None:
@@ -58,7 +58,3 @@ def parks():
 @app.route("/api/rating")
 def rating():
     return get_rating_data()
-
-
-if __name__ == "__main__":
-    app.run(debug=True)
