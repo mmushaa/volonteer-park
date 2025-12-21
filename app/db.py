@@ -28,6 +28,13 @@ def get_park_data(park_id):
     return data
 
 
+def get_user(user_id):
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM users WHERE id=?", (user_id,))
+    data = cursor.fetchone()
+    return data
+
+
 def get_user_by_login(login):
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM users WHERE login=?", (login,))

@@ -4,3 +4,4 @@ temp/
 venv/
 *.db
 __pycache__/
+.env

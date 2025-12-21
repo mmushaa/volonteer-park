@@ -1,14 +1,15 @@
 from app import app
 from app.utils import validate_user
-from app.db import get_rating_data, get_all_parks_data, create_user, get_user_by_login
+from app.db import get_rating_data, get_all_parks_data, create_user, get_user_by_login, get_user
 
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, session
 
 from werkzeug.security import check_password_hash
 
 
 @app.route("/")
 def index():
+    user_id = session.get("user_id")    
     return render_template("index.html")
 
 
@@ -46,6 +47,8 @@ def login():
 
         if not check_password_hash(user["password_hash"], password):
             return render_template("login.html", error="Неверный логин или пароль")
+        
+        session["user_id"] = user["id"]
 
         return redirect(url_for("index"))
 
