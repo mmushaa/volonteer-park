@@ -10,20 +10,14 @@
 git clone https://github.com/mmushaa/volonteer-park.git
 ```
 
-### Только фронтенд
-
-2. Откройте в браузере файл `/frontend/index.html`
-
-### Бекенд
-
 2. Создайте виртуальное окружение
 ```bash
-python3 -m venv venv
+python3 -m venv .venv
 ```
 
 3. Активируйте виртуальное окружение
 ```bash
-source venv/bin/activate
+source .venv/bin/activate
 ```
 
 4. Установите зависимости
@@ -33,11 +27,11 @@ pip install -r requirements.txt
 
 5. Создайте базу данных
 ```bash
-python -c "from backend.db import create_db; create_db()"
+flask db upgrade
 ```
 
 6. Запустите сервер
 ```bash
-python backend/app.py
+python app.py
 ```
 
