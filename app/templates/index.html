@@ -21,8 +21,17 @@
                             <div class="menu-line"></div>
                         </div>
                         <div class="sidebar" id="sidebar">
-                            <a href="/login" class="menu-item">Войти</a>
+                            <a href="/login" class="menu-item">
+                                {% if not user_id %}
+                                Войти
+                                {% else %}
+                                Профиль
+                                {% endif %}
+                            </a>
                             <a href="#" class="menu-item" onclick="showParksPage()">Парки</a>
+                            {% if user_id %}
+                            <a href="/logout" class="menu-item">Выйти</a>
+                            {% endif %}
                         </div>
                         
                         <!-- Заголовок -->
