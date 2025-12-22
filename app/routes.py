@@ -20,6 +20,31 @@ def index():
     return render_template("index.html", user_id=user_id)
 
 
+@app.route("/profile")
+def profile():
+    user_id = session.get("user_id")
+    if user_id is None:
+        return redirect("/login")
+
+    user = get_user(user_id)
+    if user is None:
+        return redirect("/login")
+
+    first_name = user.first_name
+    last_name = user.last_name
+    login = user.login
+    return render_template("profile.html", user=user, first_name=first_name, last_name=last_name, login=login)
+
+
+@app.route("/events")
+def events():
+    user_id = session.get("user_id")
+    if user_id is None:
+        return redirect("/login")
+    
+    return render_template("events.html", user_id=user_id)
+
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "GET":
@@ -68,31 +93,6 @@ def login():
 def logout():
     session.pop("user_id", None)
     return redirect("/")
-
-
-@app.route("/profile")
-def profile():
-    user_id = session.get("user_id")
-    if user_id is None:
-        return redirect("/login")
-
-    user = get_user(user_id)
-    if user is None:
-        return redirect("/login")
-
-    first_name = user.first_name
-    last_name = user.last_name
-    login = user.login
-    return render_template("profile.html", user=user, first_name=first_name, last_name=last_name, login=login)
-
-
-@app.route("/events")
-def events():
-    user_id = session.get("user_id")
-    if user_id is None:
-        return redirect("/login")
-    
-    return render_template("events.html", user_id=user_id)
 
 
 @app.route("/api/rating")
