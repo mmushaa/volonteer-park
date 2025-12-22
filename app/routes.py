@@ -104,7 +104,7 @@ def rating():
         users_data.append({
             'place': i,
             'name': f'{user.first_name} {user.last_name}',
-            'events': user.events_text if user.events_text else 'Пока нет событий',
+            'events': user.events_text.count(',') + 1 if user.events_text else 0,
             'avatar': user.avatar_emoji if user.avatar_emoji else '👨‍💻',
             'hours': user.hours if user.hours else '0',
         })
