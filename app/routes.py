@@ -8,7 +8,7 @@ from app.crud import (
     get_user,
 )
 
-from flask import render_template, request, redirect, url_for, session
+from flask import render_template, request, redirect, url_for, session, jsonify
 
 from werkzeug.security import check_password_hash
 
@@ -101,4 +101,16 @@ def parks():
 
 @app.route("/api/rating")
 def rating():
-    return get_rating_data()
+    users = get_rating_data()
+    users_data = []
+    
+    for i, user in enumerate(users, 1):
+        users_data.append({
+            'place': i,
+            'name': f'{user.first_name} {user.last_name}',
+            'events': user.events_text if user.events_text else 'Пока нет событий',
+            'avatar': user.avatar_emoji,
+            'hours': user.hours,
+        })
+    
+    return jsonify({'rating': users_data})

@@ -7,7 +7,7 @@ import json
 
 
 def get_rating_data():
-    return User.query.all()
+    return User.query.order_by(User.hours.desc()).all()
 
 
 def get_all_parks_data():
@@ -32,6 +32,7 @@ def create_user(login, password_hash, first_name, last_name):
     user.password_hash = password_hash
     user.first_name = first_name
     user.last_name = last_name
+    user.avatar_emoji = '👨‍💻'
     db.session.add(user)
     db.session.commit()
     return user
