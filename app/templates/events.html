@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ВолонтерПарк</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/index.css">
+    <link rel="stylesheet" href="/static/events.css">
+</head>
+
+<body>
+    <!-- Страница карты -->
+    <div class="map-page" id="mapPage">
+        <!-- Навигация -->
+        <nav class="navbar navbar-dark">
+            <div class="container">
+                <a class="navbar-brand" href="/">🌿 ВолонтерПарк</a>
+                <div class="navbar-nav ml-auto">
+                    <a class="btn btn-outline-light btn-sm" href="/">
+                        ← Назад
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container mt-4">
+            <!-- Меню -->
+            <div class="menu-icon" id="menuButton">
+                <div class="menu-line"></div>
+                <div class="menu-line"></div>
+                <div class="menu-line"></div>
+            </div>
+            <div class="sidebar" id="sidebar">
+                {% if not user_id %}
+                <a href="/login" class="menu-item">
+                    Войти
+                </a>
+                {% else %}
+                <a href="/profile" class="menu-item">
+                    Профиль
+                </a>
+                {% endif %}
+                <a href="#" class="menu-item" onclick="showParksPage()">Парки</a>
+                {% if user_id %}
+                <a href="/logout" class="menu-item">Выйти</a>
+                {% endif %}
+            </div>
+
+            <div class="row fade-in text-center">
+                <div class="col-12 py-5">
+                    <h2><b>Актуальные мероприятия</b></h2>
+                    <p>Присоединяйтесь к уборкам в парках Москвы</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Карта -->
+                <div class="col-12 mb-4">
+                    <div class="map-container">
+                        <div id="map"></div>
+                    </div>
+                </div>
+
+                <!-- Список мероприятий -->
+                <div class="col-12">
+                    <div class="events-sidebar">
+                        <h5 style="color: #112b00; margin-bottom: 20px;">Ближайшие уборки</h5>
+
+                        <div class="event-card" data-lat="55.728955" data-lng="37.603579"
+                            onclick="focusOnEvent('gorky')" id="card-gorky">
+                            <div class="event-date">25 ноября, 10:00-13:00</div>
+                            <h6>Уборка в Парке Горького</h6>
+                            <div class="event-location">Крымский Вал, 9</div>
+                            <p style="font-size: 14px; color: #555;">Сбор у главного входа. Взять с собой: пакеты,
+                                грабли, перчатки.</p>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: 12px; color: #888;"></span>
+                                <button class="btn-volunteer"
+                                    onclick="event.stopPropagation(); joinEvent('gorky')">Участвовать</button>
+                            </div>
+                        </div>
+
+                        <div class="event-card" data-lat="55.709683" data-lng="37.597258"
+                            onclick="focusOnEvent('neskuchny')" id="card-neskuchny">
+                            <div class="event-date">15 декабря, 14:00-17:00</div>
+                            <h6>Уборка в Нескучном саду</h6>
+                            <div class="event-location">Ленинский проспект, 20</div>
+                            <p style="font-size: 14px; color: #555;">Сбор у главного входа. Взять с собой: лопату.</p>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: 12px; color: #888;"></span>
+                                <button class="btn-volunteer"
+                                    onclick="event.stopPropagation(); joinEvent('neskuchny')">Участвовать</button>
+                            </div>
+                        </div>
+
+                        <div class="event-card" data-lat="55.791348" data-lng="37.677933"
+                            onclick="focusOnEvent('sokolniki')" id="card-sokolniki">
+                            <div class="event-date">20 декабря, 11:00-14:00</div>
+                            <h6>Уборка в Сокольниках</h6>
+                            <div class="event-location">Сокольнический Вал, 1</div>
+                            <p style="font-size: 14px; color: #555;">Сбор у главного входа. Взять с собой: лопату.</p>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: 12px; color: #888;"></span>
+                                <button class="btn-volunteer"
+                                    onclick="event.stopPropagation(); joinEvent('sokolniki')">Участвовать</button>
+                            </div>
+                        </div>
+
+                        <div class="event-card" data-lat="55.787152" data-lng="37.771609"
+                            onclick="focusOnEvent('izmaily')" id="card-izmaily">
+                            <div class="event-date">25 декабря, 12:00-15:00</div>
+                            <h6>Предновогодняя уборка в Измайлово</h6>
+                            <div class="event-location">Народный проспект, 17</div>
+                            <p style="font-size: 14px; color: #555;">Сбор у главного входа. Взять с собой: лопату.</p>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: 12px; color: #888;"></span>
+                                <button class="btn-volunteer"
+                                    onclick="event.stopPropagation(); joinEvent('izmaily')">Участвовать</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Блок бонусов -->
+            <div class="row">
+                <div class="col-12 mt-4">
+                    <div class="bonuses-card">
+                        <h4 style="color: #112b00; margin-bottom: 25px; text-align: center;">Бонусы за участие в
+                            мероприятиях</h4>
+
+                        <div class="bonuses-grid">
+                            <!-- Транспортные бонусы -->
+                            <div class="bonus-category">
+                                <div class="category-header">
+                                    <div class="category-icon">🚇</div>
+                                    <h5>Транспортные бонусы</h5>
+                                </div>
+                                <div class="bonus-items">
+                                    <div class="bonus-item">
+                                        <span class="bonus-badge">1 мероприятие</span>
+                                        <span class="bonus-text">1 бесплатная поездка на метро</span>
+                                    </div>
+                                    <div class="bonus-item">
+                                        <span class="bonus-badge">5 мероприятий</span>
+                                        <span class="bonus-text">Абонемент на 1 день на весь транспорт</span>
+                                    </div>
+                                    <div class="bonus-item">
+                                        <span class="bonus-badge">Каршеринг</span>
+                                        <span class="bonus-text">Промокоды на 15-20% (Яндекс.Драйв, Delimobil)</span>
+                                    </div>
+                                    <div class="bonus-item">
+                                        <span class="bonus-badge">Такси</span>
+                                        <span class="bonus-text">Скидка на Яндекс.Такси в день мероприятия</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Нематериальные бонусы -->
+                            <div class="bonus-category">
+                                <div class="category-header">
+                                    <div class="category-icon">⭐</div>
+                                    <h5>Нематериальные бонусы</h5>
+                                </div>
+                                <div class="bonus-items">
+                                    <div class="bonus-item">
+                                        <span class="bonus-badge">Приоритет</span>
+                                        <span class="bonus-text">Запись на уникальные мероприятия</span>
+                                    </div>
+                                    <div class="bonus-item">
+                                        <span class="bonus-badge">Резюме</span>
+                                        <span class="bonus-text">Официальные благодарственные письма</span>
+                                    </div>
+                                    <div class="bonus-item">
+                                        <span class="bonus-badge">Статус</span>
+                                        <span class="bonus-text">Волонтерская книжка</span>
+                                    </div>
+                                    <div class="bonus-item">
+                                        <span class="bonus-badge">Сообщество</span>
+                                        <span class="bonus-text">Доступ к закрытым мероприятиям</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Партнерские программы -->
+                            <div class="bonus-category">
+                                <div class="category-header">
+                                    <div class="category-icon">🏛️</div>
+                                    <h5>Городская инфраструктура</h5>
+                                </div>
+                                <div class="bonus-items">
+                                    <div class="bonus-item">
+                                        <span class="bonus-badge">Музеи</span>
+                                        <span class="bonus-text">Бесплатный вход после уборки в парке</span>
+                                    </div>
+                                    <div class="bonus-item">
+                                        <span class="bonus-badge">Выставки</span>
+                                        <span class="bonus-text">Скидки на городские мероприятия</span>
+                                    </div>
+                                    <div class="bonus-item">
+                                        <span class="bonus-badge">Кафе</span>
+                                        <span class="bonus-text">Скидки в партнерских заведениях</span>
+                                    </div>
+                                    <div class="bonus-item">
+                                        <span class="bonus-badge">Парки</span>
+                                        <span class="bonus-text">Бесплатные экскурсии</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ритейл-партнеры -->
+                            <div class="bonus-category">
+                                <div class="category-header">
+                                    <div class="category-icon">🛍️</div>
+                                    <h5>Партнеры-ритейлеры</h5>
+                                </div>
+                                <div class="bonus-items">
+                                    <div class="bonus-item">
+                                        <span class="bonus-badge">Спортмастер</span>
+                                        <span class="bonus-text">Скидки на одежду и инвентарь</span>
+                                    </div>
+                                    <div class="bonus-item">
+                                        <span class="bonus-badge">Декатлон</span>
+                                        <span class="bonus-text">Специальные предложения</span>
+                                    </div>
+                                    <div class="bonus-item">
+                                        <span class="bonus-badge">Книжные</span>
+                                        <span class="bonus-text">Скидки на литературу</span>
+                                    </div>
+                                    <div class="bonus-item">
+                                        <span class="bonus-badge">Эко-магазины</span>
+                                        <span class="bonus-text">Скидки на экологичные товары</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bonus-footer text-center mt-4">
+                            <p style="color: #454545; font-size: 14px; margin: 0;">
+                                <strong>Как получить бонусы:</strong> Участвуйте в мероприятиях, накапливайте активность
+                                и получайте бонусы автоматически!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- Закрытие container -->
+    </div> <!-- Закрытие map-page -->
+
+    <!-- Яндекс Карты API -->
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=ваш_api_ключ&lang=ru_RU" type="text/javascript"></script>
+
+    <script>
+        let map;
+        let placemarks = [];
+
+        // Фокусировка на мероприятии
+        function focusOnEvent(eventId) {
+            const eventData = getEventData(eventId);
+            if (eventData && placemarks[eventId]) {
+                map.setCenter([eventData.coords[0], eventData.coords[1]], 16);
+                placemarks[eventId].balloon.open();
+                document.querySelectorAll('.event-card').forEach(card => card.classList.remove('active'));
+                document.getElementById(`card-${eventId}`).classList.add('active');
+            }
+        }
+
+        // Данные мероприятий
+        function getEventData(eventId) {
+            const events = {
+                'gorky': {
+                    coords: [55.728955, 37.603579],
+                    title: 'Уборка в Парке Горького',
+                    time: 'Завтра, 10:00-13:00',
+                    address: 'Крымский Вал, 9',
+                    description: 'Сбор у главного входа. Инвентарь предоставляется. Обед включен.'
+                },
+                'neskuchny': {
+                    coords: [55.709683, 37.597258],
+                    title: 'Уборка в Нескучном саду',
+                    time: '15 декабря, 14:00-17:00',
+                    address: 'Ленинский проспект, 20',
+                    description: 'Уборка опавшей листвы и мусора. Работа в небольших группах.'
+                },
+                'sokolniki': {
+                    coords: [55.791348, 37.677933],
+                    title: 'Уборка в Сокольниках',
+                    time: '20 декабря, 11:00-14:00',
+                    address: 'Сокольнический Вал, 1',
+                    description: 'Расчистка дорожек от снега и уборка территории. Теплый чай предусмотрен.'
+                },
+                'izmaily': {
+                    coords: [55.787152, 37.771609],
+                    title: 'Предновогодняя уборка в Измайлово',
+                    time: '25 декабря, 12:00-15:00',
+                    address: 'Народный проспект, 17',
+                    description: 'Подготовка парка к Новому году. Украшение территории.'
+                }
+            };
+            return events[eventId];
+        }
+
+        // Инициализация карты
+        function initMap() {
+            if (typeof ymaps === 'undefined') {
+                document.getElementById('map').innerHTML = `
+                    <div style="display: flex; align-items: center; justify-content: center; height: 100%; background: #e1e5ec; color: #666; text-align: center; padding: 20px;">
+                        <div>
+                            <h4>Карта мероприятий</h4>
+                            <p>Здесь будет Яндекс Карта с мероприятиями</p>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            ymaps.ready(function () {
+                map = new ymaps.Map('map', {
+                    center: [55.7558, 37.6173],
+                    zoom: 11,
+                    controls: ['zoomControl', 'fullscreenControl']
+                });
+
+                const eventIds = ['gorky', 'neskuchny', 'sokolniki', 'izmaily'];
+
+                eventIds.forEach(eventId => {
+                    const eventData = getEventData(eventId);
+                    if (eventData) {
+                        const placemark = new ymaps.Placemark(
+                            eventData.coords,
+                            {
+                                balloonContentHeader: `<div class="balloon-title">${eventData.title}</div>`,
+                                balloonContentBody: `
+                                    <div class="balloon-time">${eventData.time}</div>
+                                    <div>📍 ${eventData.address}</div>
+                                    <div style="margin-top: 10px;">${eventData.description}</div>
+                                    <button onclick="joinEvent('${eventId}')" style="margin-top: 10px; background: #8bc34a; color: white; border: none; padding: 8px 15px; border-radius: 15px; cursor: pointer;">
+                                        Записаться
+                                    </button>
+                                `,
+                                hintContent: eventData.title
+                            },
+                            {
+                                preset: 'islands#greenIcon',
+                                balloonCloseButton: true,
+                                hideIconOnBalloonOpen: false
+                            }
+                        );
+
+                        placemark.events.add('click', function () {
+                            document.querySelectorAll('.event-card').forEach(card => card.classList.remove('active'));
+                            document.getElementById(`card-${eventId}`).classList.add('active');
+                        });
+
+                        map.geoObjects.add(placemark);
+                        placemarks[eventId] = placemark;
+                    }
+                });
+            });
+        }
+
+        // Функции для меню
+        function toggleMenu() {
+            const sidebar = document.getElementById('sidebar');
+            const menuButton = document.getElementById('menuButton');
+            sidebar.classList.toggle('active');
+            menuButton.classList.toggle('active');
+        }
+
+        function closeMenu() {
+            const sidebar = document.getElementById('sidebar');
+            const menuButton = document.getElementById('menuButton');
+            sidebar.classList.remove('active');
+            menuButton.classList.remove('active');
+        }
+
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', function () {
+            initMap();
+            const menuButton = document.getElementById('menuButton');
+            const sidebar = document.getElementById('sidebar');
+
+            if (menuButton && sidebar) {
+                menuButton.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    toggleMenu();
+                });
+
+                document.addEventListener('click', function (e) {
+                    if (sidebar.classList.contains('active') &&
+                        !sidebar.contains(e.target) &&
+                        !menuButton.contains(e.target)) {
+                        closeMenu();
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

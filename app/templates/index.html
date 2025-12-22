@@ -29,10 +29,13 @@
                             <a href="/profile" class="menu-item">
                                 Профиль
                             </a>
+                            <a href="/events" class="menu-item">
+                                Выбрать событие
+                            </a>
                             {% endif %}
                             <a href="#" class="menu-item" onclick="showParksPage()">Парки</a>
                             {% if user_id %}
-                            <a href="/log" class="menu-item">Выйти</a>
+                            <a href="/logout" class="menu-item">Выйти</a>
                             {% endif %}
                         </div>
                         
@@ -58,7 +61,7 @@
                             Присоединяйтесь к сообществу активных волонтеров, меняйте город к лучшему и получайте бонусы за свою активность!
                         </p>
                         
-                        <a href="/login" class="bg-tab">
+                        <a href="/events" class="bg-tab">
                             <h4 style="margin: 0;"><b>ВЫБРАТЬ МЕРОПРИЯТИЕ</b></h4>
                         </a>
                     </div>

@@ -53,10 +53,10 @@ def login():
         if user is None:
             return render_template("login.html", error="Неверный логин или пароль")
 
-        if not check_password_hash(user["password_hash"], password):
+        if not check_password_hash(user.password_hash, password):
             return render_template("login.html", error="Неверный логин или пароль")
 
-        session["user_id"] = user["id"]
+        session["user_id"] = user.id
 
         return redirect(url_for("index"))
 
@@ -74,10 +74,22 @@ def profile():
         return redirect("/login")
 
     user = get_user(user_id)
-    first_name = user["first_name"]
-    last_name = user["last_name"]
-    login = user["login"]
+    if user is None:
+        return redirect("/login")
+
+    first_name = user.first_name
+    last_name = user.last_name
+    login = user.login
     return render_template("profile.html", user=user, first_name=first_name, last_name=last_name, login=login)
+
+
+@app.route("/events")
+def events():
+    user_id = session.get("user_id")
+    if user_id is None:
+        return redirect("/login")
+    
+    return render_template("events.html", user_id=user_id)
 
 
 @app.route("/api/parks")

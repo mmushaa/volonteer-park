@@ -56,6 +56,7 @@ class Event(db.Model):
     end_time: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=datetime.now)
 
     # Relationships
+    user_id: Mapped[int] = mapped_column(Integer, ForeignKey('users.id'))
     user: Mapped[User] = relationship('User', back_populates='events')
 
     def __repr__(self) -> str:
