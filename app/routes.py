@@ -32,9 +32,11 @@ def register():
 
         try:
             password_hash = validate_user(login, password, password_repeat)
-            create_user(login, password_hash, first_name, last_name)
+            user = create_user(login, password_hash, first_name, last_name)
         except ValueError as error:
             return render_template("register.html", error=error)
+        
+        session["user_id"] = user.id
 
         return redirect(url_for("index"))
 

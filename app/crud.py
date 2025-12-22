@@ -34,6 +34,4 @@ def create_user(login, password_hash, first_name, last_name):
     user.last_name = last_name
     db.session.add(user)
     db.session.commit()
-
-
-
+    return user
