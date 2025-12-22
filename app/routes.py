@@ -6,6 +6,7 @@ from app.crud import (
     create_user,
     get_user_by_login,
     get_user,
+    get_park_data
 )
 
 from flask import render_template, request, redirect, url_for, session, jsonify
@@ -94,11 +95,6 @@ def events():
     return render_template("events.html", user_id=user_id)
 
 
-@app.route("/api/parks")
-def parks():
-    return get_all_parks_data()
-
-
 @app.route("/api/rating")
 def rating():
     users = get_rating_data()
@@ -109,8 +105,20 @@ def rating():
             'place': i,
             'name': f'{user.first_name} {user.last_name}',
             'events': user.events_text if user.events_text else 'Пока нет событий',
-            'avatar': user.avatar_emoji,
-            'hours': user.hours,
+            'avatar': user.avatar_emoji if user.avatar_emoji else '👨‍💻',
+            'hours': user.hours if user.hours else '0',
         })
     
     return jsonify({'rating': users_data})
+
+
+@app.route("/parks")
+def parks():
+    parks = get_all_parks_data()
+    return render_template("parks.html", parks=parks)
+
+
+@app.route('/park/<int:park_id>')
+def park(park_id):
+    park = get_park_data(int(park_id))
+    return render_template('park_page.html', park=park)

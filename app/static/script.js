@@ -30,129 +30,11 @@ function showParkHistory(parkId) {
     if (parkData) {
         // Создаем HTML для аудиогида
         const audioguideHTML = parkData.audioguide ? `
-            <div class="audioguide-section fade-in">
-                <div class="audioguide-header">
-                    <div class="audioguide-icon">🎧</div>
-                    <div>
-                        <h3 style="color: white; margin: 0;">Аудиогид с AR-камерой</h3>
-                        <p style="color: rgba(255,255,255,0.8); margin: 5px 0 0 0;">${parkData.audioguide.description}</p>
-                    </div>
-                </div>
-                
-                <!-- AR-камера -->
-                <div class="ar-camera-container">
-                    <h4 style="color: white; margin-bottom: 15px;">📷 AR-камера для сканирования объектов</h4>
-                    <div class="camera-preview">
-                        <div style="font-size: 50px;">📷</div>
-                        <div style="margin-top: 20px; color: #8bc34a; font-weight: bold;">Нажмите "Запустить камеру" для начала сканирования</div>
-                    </div>
-                    <div class="camera-controls">
-                        <button class="camera-btn start-camera-btn" onclick="startCamera()">
-                            <span>▶️</span> Запустить камеру
-                        </button>
-                        <button class="camera-btn secondary stop-camera-btn" onclick="stopCamera()" disabled>
-                            <span>⏹️</span> Остановить
-                        </button>
-                        <button class="camera-btn secondary" onclick="alert('Функция в разработке')">
-                            <span>💾</span> Сохранить фото
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Маршруты -->
-                <h4 style="color: white; margin-top: 30px;">🗺️ Маршруты для прогулок</h4>
-                <div class="audioguide-routes">
-                    ${parkData.audioguide.routes.map(route => `
-                        <div class="route-card" onclick="selectRoute('${route.name}')">
-                            <div class="route-header">
-                                <div class="route-icon">${route.icon}</div>
-                                <h5 style="color: white; margin: 0;">${route.name}</h5>
-                            </div>
-                            <div class="route-stats">
-                                <div class="route-stat">⏱️ ${route.duration}</div>
-                                <div class="route-stat">📏 ${route.length}</div>
-                                <div class="route-stat">📍 ${route.points} точек</div>
-                            </div>
-                            <div class="route-points">
-                                ${route.stops.map((stop, index) => `
-                                    <div class="route-point">
-                                        <div class="point-number">${index + 1}</div>
-                                        <span style="color: rgba(255,255,255,0.9);">${stop}</span>
-                                    </div>
-                                `).join('')}
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>
-                
-                <!-- Обнаруживаемые объекты -->
-                <div class="detected-objects">
-                    <h4 style="color: white; margin-bottom: 15px;">🔍 Объекты для сканирования</h4>
-                    <p style="color: rgba(255,255,255,0.8); margin-bottom: 15px;">Наведите камеру на эти объекты в парке, чтобы получить информацию:</p>
-                    <div class="objects-grid">
-                        ${parkData.audioguide.detectableObjects.map(obj => `
-                            <div class="object-card">
-                                <div class="object-icon">${obj.icon}</div>
-                                <div class="object-name">${obj.name}</div>
-                                <div class="object-desc">${obj.desc}</div>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            </div>
+            
         ` : '';
 
         historyContent.innerHTML = `
-            <div class="park-history-content fade-in">
-                <div class="history-header">
-                    <h2>${parkData.name}</h2>
-                    <p class="text-muted">${parkData.location}</p>
-                </div>
-
-                <div class="history-image" style="background-image: url('${parkData.image}')">
-                </div>
-
-                <div class="history-info">
-                    <div class="info-card">
-                        <h4>⭐ Рейтинг</h4>
-                        <p>${parkData.rating}</p>
-                    </div>
-                    <div class="info-card">
-                        <h4>🕒 Время работы</h4>
-                        <p>${parkData.hours}</p>
-                    </div>
-                    <div class="info-card">
-                        <h4>🚇 Метро</h4>
-                        <p>${parkData.metro}</p>
-                    </div>
-                    <div class="info-card">
-                        <h4>📅 Основан</h4>
-                        <p>${parkData.founded}</p>
-                    </div>
-                </div>
-
-                <div class="history-text">
-                    <h4>История парка</h4>
-                    <p>${parkData.history}</p>
-                </div>
-
-                <div class="history-text">
-                    <h4>Особенности</h4>
-                    <p>${parkData.features}</p>
-                </div>
-
-                <div class="history-features">
-                    ${parkData.amenities.map(amenity => `
-                        <div class="feature-item">
-                            <span>${amenity.emoji}</span>
-                            <span>${amenity.name}</span>
-                        </div>
-                    `).join('')}
-                </div>
-                
-                <!-- Аудиогид -->
-                ${audioguideHTML}
-            </div>
+            
         `;
 
         // Инициализируем кнопки камеры
@@ -251,34 +133,6 @@ async function loadRatingTable() {
     });
 
     tableBody.innerHTML = html;
-}
-
-// Загрузка парков
-function loadParks() {
-    const parksGrid = document.getElementById('parksGrid');
-    const parkIds = ['gorky', 'sokolniki', 'izmaily', 'tsaritsyno', 'kolomenskoe', 'vdnh'];
-
-    const parkCards = parkIds.map(parkId => {
-        const parkData = parksData[parkId];
-        return `
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="park-card fade-in" onclick="showParkHistory('${parkId}')">
-                    <div class="park-image" style="background-image: url('${parkData.image}');">
-                    </div>
-                    <div class="park-info">
-                        <h5>${parkData.name}</h5>
-                        <p class="park-location">${parkData.location}</p>
-                        <div class="park-stats">
-                            <span>⭐ ${parkData.rating}</span>
-                            <span>🕒 ${parkData.hours}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-    }).join('');
-
-    parksGrid.innerHTML = parkCards;
 }
 
 // Инициализация

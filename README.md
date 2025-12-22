@@ -27,7 +27,12 @@ pip install -r requirements.txt
 
 5. Создайте базу данных
 ```bash
-flask db upgrade
+flask db upgrade head
+```
+
+5. Наполните базу тестовыми данными (опционально)
+```bash
+sqlite3 instance/app.db < mock.sql
 ```
 
 6. Запустите сервер

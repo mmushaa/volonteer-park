@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <title>ВолонтерПарк - Главная</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/index.css">
+</head>
+
+<body>
+    <!-- Страница истории парка -->
+    <div class="park-history-page" id="parkHistoryPage">
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background: #2a6726ce;">
+            <div class="container">
+                <a class="navbar-brand" href="#" onclick="window.location.href = '/'">🌿 Парки Москвы</a>
+                <div class="navbar-nav ml-auto">
+                    <button class="btn btn-outline-light btn-sm" onclick="window.location.href = '/parks'">
+                        ← Назад к паркам
+                    </button>
+                </div>
+            </div>
+        </nav>
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-12">
+                    <div id="parkHistoryContent">
+                        <div class="park-history-content fade-in">
+                            <div class="history-header">
+                                <h2>{{ park.name }}</h2>
+                                <p class="text-muted">{{ park.location }}</p>
+                            </div>
+
+                            <div class="history-image" style="background-image: url('{{ park.image_src }}')">
+                            </div>
+
+                            <div class="history-info">
+                                <div class="info-card">
+                                    <h4>⭐ Рейтинг</h4>
+                                    <p>{{ park.rating }}</p>
+                                </div>
+                                <div class="info-card">
+                                    <h4>🕒 Время работы</h4>
+                                    <p>{{ park.hours }}</p>
+                                </div>
+                                <div class="info-card">
+                                    <h4>🚇 Метро</h4>
+                                    <p>{{ park.metro }}</p>
+                                </div>
+                                <div class="info-card">
+                                    <h4>📅 Основан</h4>
+                                    <p>{{ park.founded }}</p>
+                                </div>
+                            </div>
+
+                            <div class="history-text">
+                                <h4>Описание</h4>
+                                <p>{{ park.description }}</p>
+                            </div>
+
+                            <!-- Аудиогид -->
+                            {% if park.audioguide_description %}
+                            <div class="audioguide-section fade-in">
+                                <div class="audioguide-header">
+                                    <div class="audioguide-icon">🎧</div>
+                                    <div>
+                                        <h3 style="color: white; margin: 0;">Аудиогид с AR-камерой</h3>
+                                        <p style="color: rgba(255,255,255,0.8); margin: 5px 0 0 0;">
+                                            {{ park.audioguide_description }}</p>
+                                    </div>
+                                </div>
+
+                                <!-- AR-камера -->
+                                <div class="ar-camera-container">
+                                    <h4 style="color: white; margin-bottom: 15px;">📷 AR-камера для сканирования
+                                        объектов</h4>
+                                    <div class="camera-preview">
+                                        <div style="font-size: 50px;">📷</div>
+                                        <div style="margin-top: 20px; color: #8bc34a; font-weight: bold;">Нажмите
+                                            "Запустить камеру" для начала сканирования</div>
+                                    </div>
+                                    <div class="camera-controls">
+                                        <button class="camera-btn start-camera-btn" onclick="startCamera()">
+                                            <span>▶️</span> Запустить камеру
+                                        </button>
+                                        <button class="camera-btn secondary stop-camera-btn" onclick="stopCamera()"
+                                            disabled>
+                                            <span>⏹️</span> Остановить
+                                        </button>
+                                        <button class="camera-btn secondary" onclick="alert('Функция в разработке')">
+                                            <span>💾</span> Сохранить фото
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Маршруты -->
+                                <h4 style="color: white; margin-top: 30px;">🗺️ Маршруты для прогулок</h4>
+                                <div class="audioguide-routes">
+                                    <div class="route-card" onclick="selectRoute('${route.name}')">
+                                        <div class="route-header">
+                                            <div class="route-icon">📍</div>
+                                            <h5 style="color: white; margin: 0;">Тестовый маршрут</h5>
+                                        </div>
+                                        <div class="route-stats">
+                                            <div class="route-stat">⏱️ 05:00</div>
+                                            <div class="route-stat">📏 1000 м</div>
+                                            <div class="route-stat">📍 5 точек</div>
+                                        </div>
+                                        <div class="route-points">
+                                            <div class="route-point">
+                                                <div class="point-number">1</div>
+                                                <span style="color: rgba(255,255,255,0.9);">Первая точка</span>
+                                            </div>
+                                            <div class="route-point">
+                                                <div class="point-number">2</div>
+                                                <span style="color: rgba(255,255,255,0.9);">Вторая точка</span>
+                                            </div>
+                                            <div class="route-point">
+                                                <div class="point-number">3</div>
+                                                <span style="color: rgba(255,255,255,0.9);">Третья точка</span>
+                                            </div>
+                                            <div class="route-point">
+                                                <div class="point-number">4</div>
+                                                <span style="color: rgba(255,255,255,0.9);">Четвертая точка</span>
+                                            </div>
+                                            <div class="route-point">
+                                                <div class="point-number">5</div>
+                                                <span style="color: rgba(255,255,255,0.9);">Пятая точка</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Обнаруживаемые объекты -->
+                                <div class="detected-objects">
+                                    <h4 style="color: white; margin-bottom: 15px;">🔍 Объекты для сканирования</h4>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+        crossorigin="anonymous"></script>
+    <!-- <script src="/static/script.js"></script> -->
+    <script src="/static/ar.js"></script>
+</body>
+
+</html>
