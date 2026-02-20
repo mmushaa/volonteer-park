@@ -57,35 +57,56 @@ function stopCamera() {
 }
 
 function showObjectInfo(icon, name, description) {
-  let objectInfo = document.querySelector(".object-info");
-  if (!objectInfo) {
-    objectInfo = document.createElement("div");
-    objectInfo.className = "object-info";
-    objectInfo.style.cssText = `
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0,0,0,0.8);
-            color: white;
-            padding: 15px;
-            border-radius: 10px;
-            max-width: 300px;
-            text-align: center;
-            z-index: 1000;
-        `;
-    document.querySelector(".camera-preview").appendChild(objectInfo);
-  }
+    let objectInfo = document.querySelector(".object-info");
 
-  objectInfo.innerHTML = `
-        <div style="font-size: 30px; margin-bottom: 10px;">${icon}</div>
-        <div style="font-weight: bold; margin-bottom: 5px;">${name}</div>
-        <div style="font-size: 12px; opacity: 0.8;">${description}</div>
-    `;
-  objectInfo.style.display = "block";
+    if (!objectInfo) {
+        objectInfo = document.createElement("div");
+        objectInfo.className = "object-info";
 
-  // Автоматически скрываем через 5 секунд
-  setTimeout(() => {
-    objectInfo.style.display = "none";
-  }, 5000);
+        objectInfo.style.position = "absolute";
+        objectInfo.style.bottom = "20px";
+        objectInfo.style.left = "50%";
+        objectInfo.style.transform = "translateX(-50%)";
+        objectInfo.style.background = "rgba(0,0,0,0.8)";
+        objectInfo.style.color = "white";
+        objectInfo.style.padding = "15px";
+        objectInfo.style.borderRadius = "10px";
+        objectInfo.style.maxWidth = "300px";
+        objectInfo.style.textAlign = "center";
+        objectInfo.style.zIndex = "1000";
+
+        const container = document.querySelector(".camera-preview");
+        if (!container) return;
+        container.appendChild(objectInfo);
+    }
+
+    // Очищаем содержимое безопасно
+    objectInfo.replaceChildren();
+
+    // Иконка
+    const iconDiv = document.createElement("div");
+    iconDiv.style.fontSize = "30px";
+    iconDiv.style.marginBottom = "10px";
+    iconDiv.textContent = icon || "";
+    objectInfo.appendChild(iconDiv);
+
+    // Название
+    const nameDiv = document.createElement("div");
+    nameDiv.style.fontWeight = "bold";
+    nameDiv.style.marginBottom = "5px";
+    nameDiv.textContent = name || "";
+    objectInfo.appendChild(nameDiv);
+
+    // Описание
+    const descDiv = document.createElement("div");
+    descDiv.style.fontSize = "12px";
+    descDiv.style.opacity = "0.8";
+    descDiv.textContent = description || "";
+    objectInfo.appendChild(descDiv);
+
+    objectInfo.style.display = "block";
+
+    setTimeout(() => {
+        objectInfo.style.display = "none";
+    }, 5000);
 }
