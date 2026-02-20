@@ -1,4 +1,3 @@
-// Функции для меню
 function toggleMenu() {
     const sidebar = document.getElementById('sidebar');
     const menuButton = document.getElementById('menuButton');
@@ -18,126 +17,140 @@ function closeMenu() {
 }
 
 function showParkHistory(parkId) {
-    document.getElementById('mainPage').style.display = 'none';
-    document.getElementById('profilePage').style.display = 'none';
-    document.getElementById('parksPage').style.display = 'none';
-    document.getElementById('parkHistoryPage').style.display = 'block';
+    const pages = ['mainPage', 'profilePage', 'parksPage', 'parkHistoryPage'];
+    pages.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = id === 'parkHistoryPage' ? 'block' : 'none';
+    });
+
     document.body.style.overflow = 'auto';
 
-    const parkData = parksData[parkId];
+    const parkData = parksData?.[parkId];
     const historyContent = document.getElementById('parkHistoryContent');
+    if (!historyContent) return;
 
-    if (parkData) {
-        // Создаем HTML для аудиогида
-        const audioguideHTML = parkData.audioguide ? `
-            
-        ` : '';
+    historyContent.innerHTML = '';
 
-        historyContent.innerHTML = `
-            
-        `;
+    if (!parkData) return;
 
-        // Инициализируем кнопки камеры
-        setTimeout(() => {
-            const startBtn = document.querySelector('.start-camera-btn');
-            const stopBtn = document.querySelector('.stop-camera-btn');
-            if (startBtn && stopBtn) {
-                startBtn.addEventListener('click', startCamera);
-                stopBtn.addEventListener('click', stopCamera);
-            }
-        }, 100);
+    // Заголовок
+    const title = document.createElement('h2');
+    title.textContent = parkData.name || 'Парк';
+    historyContent.appendChild(title);
+
+    // Описание
+    if (parkData.description) {
+        const desc = document.createElement('p');
+        desc.textContent = parkData.description;
+        historyContent.appendChild(desc);
     }
+
+    // Аудиогид (если есть)
+    if (parkData.audioguide) {
+        const audio = document.createElement('audio');
+        audio.controls = true;
+        audio.src = parkData.audioguide;
+        historyContent.appendChild(audio);
+    }
+
+    // Кнопки камеры
+    const startBtn = document.createElement('button');
+    startBtn.className = 'start-camera-btn';
+    startBtn.textContent = 'Включить камеру';
+
+    const stopBtn = document.createElement('button');
+    stopBtn.className = 'stop-camera-btn';
+    stopBtn.textContent = 'Выключить камеру';
+
+    startBtn.addEventListener('click', startCamera);
+    stopBtn.addEventListener('click', stopCamera);
+
+    historyContent.appendChild(startBtn);
+    historyContent.appendChild(stopBtn);
 }
 
 function selectRoute(routeName) {
-    alert(`Выбран маршрут: "${routeName}"\n\nФункция навигации по маршруту будет доступна в полной версии приложения.`);
+    alert(`Выбран маршрут: "${routeName}"`);
 }
 
 async function getRatingData() {
     try {
         const response = await fetch('/api/rating');
+        if (!response.ok) throw new Error('API error');
         const data = await response.json();
-        return data.rating;
+        return Array.isArray(data.rating) ? data.rating : [];
     } catch (error) {
-        console.error(error);
-        throw error;
+        console.error('Rating load error:', error);
+        return [];
     }
 }
 
-// Загрузка рейтинга
 async function loadRatingTable() {
     const tableBody = document.getElementById('ratingTableBody');
     if (!tableBody) return;
 
-    let html = '';
+    tableBody.innerHTML = '';
 
     const ratingData = await getRatingData();
-    
-    // Заполняем подиум (первые 3 места)
-    if (ratingData.length >= 1) {
-        // Первое место
-        const firstPlace = ratingData[0];
-        const firstPlaceElement = document.querySelector('.first-place');
-        if (firstPlaceElement) {
-            firstPlaceElement.querySelector('.position-badge').textContent = '1';
-            firstPlaceElement.querySelector('.user-avatar').textContent = firstPlace.avatar;
-            firstPlaceElement.querySelector('.user-name').textContent = firstPlace.name;
-            firstPlaceElement.querySelector('.user-stats').textContent = `${firstPlace.events} событий`;
-            firstPlaceElement.querySelector('.user-score').textContent = `${firstPlace.hours} часов`;
-        }
-    }
 
-    if (ratingData.length >= 2) {
-        // Второе место
-        const secondPlace = ratingData[1];
-        const secondPlaceElement = document.querySelector('.second-place');
-        if (secondPlaceElement) {
-            secondPlaceElement.querySelector('.position-badge').textContent = '2';
-            secondPlaceElement.querySelector('.user-avatar').textContent = secondPlace.avatar;
-            secondPlaceElement.querySelector('.user-name').textContent = secondPlace.name;
-            secondPlaceElement.querySelector('.user-stats').textContent = `${secondPlace.events} событий`;
-            secondPlaceElement.querySelector('.user-score').textContent = `${secondPlace.hours} часов`;
-        }
-    }
+    // Обновление подиума
+    const podiumClasses = ['first-place', 'second-place', 'third-place'];
 
-    if (ratingData.length >= 3) {
-        // Третье место
-        const thirdPlace = ratingData[2];
-        const thirdPlaceElement = document.querySelector('.third-place');
-        if (thirdPlaceElement) {
-            thirdPlaceElement.querySelector('.position-badge').textContent = '3';
-            thirdPlaceElement.querySelector('.user-avatar').textContent = thirdPlace.avatar;
-            thirdPlaceElement.querySelector('.user-name').textContent = thirdPlace.name;
-            thirdPlaceElement.querySelector('.user-stats').textContent = `${thirdPlace.events} событий`;
-            thirdPlaceElement.querySelector('.user-score').textContent = `${thirdPlace.hours} часов`;
-        }
-    }
+    podiumClasses.forEach((className, index) => {
+        const user = ratingData[index];
+        const element = document.querySelector(`.${className}`);
+        if (!user || !element) return;
 
-    ratingData.forEach(user => {
-        const positionClass = user.position <= 3 ? `position-${user.place}` : '';
-        html += `
-            <tr>
-                <td class="position-cell ${positionClass}">${user.place}</td>
-                <td>
-                    <div class="user-cell">
-                        <div class="user-avatar-small">${user.avatar}</div>
-                        <div>
-                            <div class="user-name">${user.name}</div>
-                        </div>
-                    </div>
-                </td>
-                <td class="stats-cell">${user.events}</td>
-                <td class="hours-cell">${user.hours}</td>
-            </tr>
-        `;
+        element.querySelector('.position-badge').textContent = index + 1;
+        element.querySelector('.user-avatar').textContent = user.avatar || '';
+        element.querySelector('.user-name').textContent = user.name || '';
+        element.querySelector('.user-stats').textContent = `${user.events || 0} событий`;
+        element.querySelector('.user-score').textContent = `${user.hours || 0} часов`;
     });
 
-    tableBody.innerHTML = html;
+    // Таблица
+    ratingData.forEach(user => {
+        const tr = document.createElement('tr');
+
+        const positionTd = document.createElement('td');
+        positionTd.className = 'position-cell';
+        positionTd.textContent = user.place ?? '';
+        tr.appendChild(positionTd);
+
+        const nameTd = document.createElement('td');
+        const userCell = document.createElement('div');
+        userCell.className = 'user-cell';
+
+        const avatarDiv = document.createElement('div');
+        avatarDiv.className = 'user-avatar-small';
+        avatarDiv.textContent = user.avatar || '';
+
+        const nameDiv = document.createElement('div');
+        nameDiv.className = 'user-name';
+        nameDiv.textContent = user.name || '';
+
+        userCell.appendChild(avatarDiv);
+        userCell.appendChild(nameDiv);
+        nameTd.appendChild(userCell);
+
+        const eventsTd = document.createElement('td');
+        eventsTd.className = 'stats-cell';
+        eventsTd.textContent = user.events ?? 0;
+
+        const hoursTd = document.createElement('td');
+        hoursTd.className = 'hours-cell';
+        hoursTd.textContent = user.hours ?? 0;
+
+        tr.appendChild(nameTd);
+        tr.appendChild(eventsTd);
+        tr.appendChild(hoursTd);
+
+        tableBody.appendChild(tr);
+    });
 }
 
-// Инициализация
 document.addEventListener('DOMContentLoaded', function () {
-    // Инициализация меню
+
     const menuButton = document.getElementById('menuButton');
     const sidebar = document.getElementById('sidebar');
 
@@ -148,9 +161,11 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         document.addEventListener('click', function (e) {
-            if (sidebar.classList.contains('active') &&
+            if (
+                sidebar.classList.contains('active') &&
                 !sidebar.contains(e.target) &&
-                !menuButton.contains(e.target)) {
+                !menuButton.contains(e.target)
+            ) {
                 closeMenu();
             }
         });
@@ -165,17 +180,18 @@ document.addEventListener('DOMContentLoaded', function () {
             const parkCards = document.querySelectorAll('.park-card');
 
             parkCards.forEach(card => {
-                const parkName = card.querySelector('h5').textContent.toLowerCase();
-                const parkLocation = card.querySelector('.park-location').textContent.toLowerCase();
+                const parkName = card.querySelector('h5')?.textContent.toLowerCase() || '';
+                const parkLocation = card.querySelector('.park-location')?.textContent.toLowerCase() || '';
 
-                if (parkName.includes(searchTerm) || parkLocation.includes(searchTerm)) {
-                    card.parentElement.style.display = 'block';
-                } else {
-                    card.parentElement.style.display = 'none';
+                const visible = parkName.includes(searchTerm) || parkLocation.includes(searchTerm);
+                if (card.parentElement) {
+                    card.parentElement.style.display = visible ? 'block' : 'none';
                 }
             });
         });
     }
 
-    loadParks();
+    if (typeof loadParks === 'function') {
+        loadParks();
+    }
 });
