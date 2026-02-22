@@ -85,69 +85,69 @@ async function getRatingData() {
     }
 }
 
-async function loadRatingTable() {
-    const tableBody = document.getElementById('ratingTableBody');
-    if (!tableBody) return;
+// async function loadRatingTable() {
+//     const tableBody = document.getElementById('ratingTableBody');
+//     if (!tableBody) return;
 
-    tableBody.innerHTML = '';
+//     tableBody.innerHTML = '';
 
-    const ratingData = await getRatingData();
+//     const ratingData = await getRatingData();
 
-    // Обновление подиума
-    const podiumClasses = ['first-place', 'second-place', 'third-place'];
+//     // Обновление подиума
+//     const podiumClasses = ['first-place', 'second-place', 'third-place'];
 
-    podiumClasses.forEach((className, index) => {
-        const user = ratingData[index];
-        const element = document.querySelector(`.${className}`);
-        if (!user || !element) return;
+//     podiumClasses.forEach((className, index) => {
+//         const user = ratingData[index];
+//         const element = document.querySelector(`.${className}`);
+//         if (!user || !element) return;
 
-        element.querySelector('.position-badge').textContent = index + 1;
-        element.querySelector('.user-avatar').textContent = user.avatar || '';
-        element.querySelector('.user-name').textContent = user.name || '';
-        element.querySelector('.user-stats').textContent = `${user.events || 0} событий`;
-        element.querySelector('.user-score').textContent = `${user.hours || 0} часов`;
-    });
+//         element.querySelector('.position-badge').textContent = index + 1;
+//         element.querySelector('.user-avatar').textContent = user.avatar || '';
+//         element.querySelector('.user-name').textContent = user.name || '';
+//         element.querySelector('.user-stats').textContent = `${user.events || 0} событий`;
+//         element.querySelector('.user-score').textContent = `${user.hours || 0} часов`;
+//     });
 
-    // Таблица
-    ratingData.forEach(user => {
-        const tr = document.createElement('tr');
+//     // Таблица
+//     ratingData.forEach(user => {
+//         const tr = document.createElement('tr');
 
-        const positionTd = document.createElement('td');
-        positionTd.className = 'position-cell';
-        positionTd.textContent = user.place ?? '';
-        tr.appendChild(positionTd);
+//         const positionTd = document.createElement('td');
+//         positionTd.className = 'position-cell';
+//         positionTd.textContent = user.place ?? '';
+//         tr.appendChild(positionTd);
 
-        const nameTd = document.createElement('td');
-        const userCell = document.createElement('div');
-        userCell.className = 'user-cell';
+//         const nameTd = document.createElement('td');
+//         const userCell = document.createElement('div');
+//         userCell.className = 'user-cell';
 
-        const avatarDiv = document.createElement('div');
-        avatarDiv.className = 'user-avatar-small';
-        avatarDiv.textContent = user.avatar || '';
+//         const avatarDiv = document.createElement('div');
+//         avatarDiv.className = 'user-avatar-small';
+//         avatarDiv.textContent = user.avatar || '';
 
-        const nameDiv = document.createElement('div');
-        nameDiv.className = 'user-name';
-        nameDiv.textContent = user.name || '';
+//         const nameDiv = document.createElement('div');
+//         nameDiv.className = 'user-name';
+//         nameDiv.textContent = user.name || '';
 
-        userCell.appendChild(avatarDiv);
-        userCell.appendChild(nameDiv);
-        nameTd.appendChild(userCell);
+//         userCell.appendChild(avatarDiv);
+//         userCell.appendChild(nameDiv);
+//         nameTd.appendChild(userCell);
 
-        const eventsTd = document.createElement('td');
-        eventsTd.className = 'stats-cell';
-        eventsTd.textContent = user.events ?? 0;
+//         const eventsTd = document.createElement('td');
+//         eventsTd.className = 'stats-cell';
+//         eventsTd.textContent = user.events ?? 0;
 
-        const hoursTd = document.createElement('td');
-        hoursTd.className = 'hours-cell';
-        hoursTd.textContent = user.hours ?? 0;
+//         const hoursTd = document.createElement('td');
+//         hoursTd.className = 'hours-cell';
+//         hoursTd.textContent = user.hours ?? 0;
 
-        tr.appendChild(nameTd);
-        tr.appendChild(eventsTd);
-        tr.appendChild(hoursTd);
+//         tr.appendChild(nameTd);
+//         tr.appendChild(eventsTd);
+//         tr.appendChild(hoursTd);
 
-        tableBody.appendChild(tr);
-    });
-}
+//         tableBody.appendChild(tr);
+//     });
+// }
 
 document.addEventListener('DOMContentLoaded', function () {
 

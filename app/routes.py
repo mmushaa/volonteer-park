@@ -6,7 +6,7 @@ from app.crud import (
     create_user,
     get_user_by_login,
     get_user,
-    get_park_data
+    get_park_data,
 )
 
 from flask import render_template, request, redirect, url_for, session, jsonify
@@ -17,7 +17,15 @@ from werkzeug.security import check_password_hash
 @app.route("/")
 def index():
     user_id = session.get("user_id")
-    return render_template("index.html", user_id=user_id)
+
+    rating_data = get_rating_data()
+    print(rating_data[0])
+    podium = rating_data[:3]
+    rest = rating_data[:50]
+
+    return render_template(
+        "index.html", user_id=user_id, rating_data=rest, podium=podium
+    )
 
 
 @app.route("/profile")
@@ -33,7 +41,13 @@ def profile():
     first_name = user.first_name
     last_name = user.last_name
     login = user.login
-    return render_template("profile.html", user=user, first_name=first_name, last_name=last_name, login=login)
+    return render_template(
+        "profile.html",
+        user=user,
+        first_name=first_name,
+        last_name=last_name,
+        login=login,
+    )
 
 
 @app.route("/events")
@@ -41,7 +55,7 @@ def events():
     user_id = session.get("user_id")
     if user_id is None:
         return redirect("/login")
-    
+
     return render_template("events.html", user_id=user_id)
 
 
@@ -61,7 +75,7 @@ def register():
             user = create_user(login, password_hash, first_name, last_name)
         except ValueError as error:
             return render_template("register.html", error=error)
-        
+
         session["user_id"] = user.id
 
         return redirect(url_for("index"))
@@ -99,17 +113,19 @@ def logout():
 def rating():
     users = get_rating_data()
     users_data = []
-    
+
     for i, user in enumerate(users, 1):
-        users_data.append({
-            'place': i,
-            'name': f'{user.first_name} {user.last_name}',
-            'events': user.events_text.count(',') + 1 if user.events_text else 0,
-            'avatar': user.avatar_emoji if user.avatar_emoji else '👨‍💻',
-            'hours': user.hours if user.hours else '0',
-        })
-    
-    return jsonify({'rating': users_data})
+        users_data.append(
+            {
+                "place": i,
+                "name": f"{user.first_name} {user.last_name}",
+                "events": user.events_text.count(",") + 1 if user.events_text else 0,
+                "avatar": user.avatar_emoji if user.avatar_emoji else "👨‍💻",
+                "hours": user.hours if user.hours else "0",
+            }
+        )
+
+    return jsonify({"rating": users_data})
 
 
 @app.route("/parks")
@@ -118,7 +134,7 @@ def parks():
     return render_template("parks.html", parks=parks)
 
 
-@app.route('/park/<int:park_id>')
+@app.route("/park/<int:park_id>")
 def park(park_id):
     park = get_park_data(int(park_id))
-    return render_template('park_page.html', park=park)
+    return render_template("park_page.html", park=park)

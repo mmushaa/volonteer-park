@@ -1,12 +1,15 @@
 <!doctype html>
 <html lang="ru">
+
 <head>
     <title>ВолонтерПарк - Главная</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <link rel="stylesheet" href="/static/index.css">
 </head>
+
 <body>
     <!-- Главная страница -->
     <div id="mainPage">
@@ -41,7 +44,7 @@
                             <a href="/logout" class="menu-item">Выйти</a>
                             {% endif %}
                         </div>
-                        
+
                         <!-- Заголовок -->
                         <div class="col-12 text-center white-text fade-in">
                             <h1 id="main-title">🌿ВолонтерПарк</h1>
@@ -61,9 +64,10 @@
                     <div class="col-12 text-center fade-in">
                         <h5 style="color: #2d5016; margin-bottom: 30px;">Найдите уборку рядом с домом</h5>
                         <p style="font-size: 1.2rem; color: #555; max-width: 800px; margin: 0 auto 40px;">
-                            Присоединяйтесь к сообществу активных волонтеров, меняйте город к лучшему и получайте бонусы за свою активность!
+                            Присоединяйтесь к сообществу активных волонтеров, меняйте город к лучшему и получайте бонусы
+                            за свою активность!
                         </p>
-                        
+
                         <a href="/events" class="bg-tab">
                             <h4 style="margin: 0;"><b>ВЫБРАТЬ МЕРОПРИЯТИЕ</b></h4>
                         </a>
@@ -112,9 +116,9 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Полная таблица рейтинга -->
-                <div class="row mt-5 fade-in">
+                <div class="row mt-5 fade-in col-12">
                     <div class="col-12">
                         <div class="rating-table-container">
                             <table class="rating-table">
@@ -127,17 +131,42 @@
                                     </tr>
                                 </thead>
                                 <tbody id="ratingTableBody">
-                                    <!-- Данные будут загружены через JavaScript -->
+                                    {% for user in rating_data %}
+                                    <tr>
+                                        <td class="position-cell">
+                                            {{ loop.index }}
+                                        </td>
+
+                                        <td>
+                                            <div class="user-cell">
+                                                <div class="user-avatar-small">
+                                                    {{ user.avatar_emoji or '' }}
+                                                </div>
+                                                <div class="user-name">
+                                                    {{ user.first_name or '' }} {{ user.last_name or '' }}
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                        <td class="stats-cell">
+                                            {{ user.events_count }}
+                                        </td>
+
+                                        <td class="hours-cell">
+                                            {{ user.hours if user.hours is not none else 0 }}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="row mt-4 fade-in">
                     <div class="col-12 text-center">
                         <p style="color: #555; max-width: 600px; margin: 0 auto;">
-                            Топ волонтеров получают специальные привилегии и бонусы. 
+                            Топ волонтеров получают специальные привилегии и бонусы.
                             Ваше место в рейтинге обновляется после каждого мероприятия!
                         </p>
                     </div>
@@ -151,9 +180,9 @@
                     <div class="col-12 pt-5 pb-5 fade-in">
                         <h4 style="color: #fff; margin-bottom: 20px;">О проекте</h4>
                         <p style="max-width: 800px; margin: 0 auto 20px;">
-                            Проект создан с целью помочь эко-волонтерам и активным гражданам, 
-                            которые в короткие сроки смогут найти и отреагировать на заинтересовавшее их мероприятие, 
-                            а также получить за это награду. Реализация проекта напрямую способствует очистке и 
+                            Проект создан с целью помочь эко-волонтерам и активным гражданам,
+                            которые в короткие сроки смогут найти и отреагировать на заинтересовавшее их мероприятие,
+                            а также получить за это награду. Реализация проекта напрямую способствует очистке и
                             благоустройству парковых зон Москвы.
                         </p>
                         <div style="border-top: 1px solid #444; padding-top: 20px; margin-top: 20px;">
@@ -166,9 +195,14 @@
     </div>
 
     <!-- JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+        crossorigin="anonymous"></script>
     <script src="/static/script.js"></script>
     <!-- <script src="/static/ar.js"></script> -->
 </body>
+
 </html>
