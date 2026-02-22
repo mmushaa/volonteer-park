@@ -86,35 +86,44 @@
 
                 <!-- Подиум топ-3 -->
                 <div class="podium-container fade-in">
+                    {% if podium | length > 1 %}
+                    {% set second_place = podium[1] %}
                     <div class="podium-place second-place">
                         <div class="podium-platform">
                             <div class="position-badge">2</div>
                             <div class="user-avatar">⭐</div>
-                            <div class="user-name"></div>
-                            <div class="user-stats"></div>
-                            <div class="user-score"></div>
+                            <div class="user-name">{{ second_place.first_name }} {{ second_place.last_name }}</div>
+                            <div class="user-stats">{{ second_place.events_count }} мероприятий</div>
+                            <div class="user-score">{{ second_place.hours }} часов</div>
                         </div>
                     </div>
+                    {% endif %}
 
+                    {% if podium | length > 0 %}
+                    {% set first_place = podium[0] %}
                     <div class="podium-place first-place">
                         <div class="podium-platform">
                             <div class="position-badge">1</div>
                             <div class="user-avatar">👑</div>
-                            <div class="user-name"></div>
-                            <div class="user-stats"></div>
-                            <div class="user-score"></div>
+                            <div class="user-name">{{ first_place.first_name }} {{ first_place.last_name }}</div>
+                            <div class="user-stats">{{ first_place.events_count }} мероприятий</div>
+                            <div class="user-score">{{ first_place.hours }} часов</div>
                         </div>
                     </div>
+                    {% endif %}
 
+                    {% if podium | length > 2 %}
+                    {% set third_place = podium[2] %}
                     <div class="podium-place third-place">
                         <div class="podium-platform">
                             <div class="position-badge">3</div>
                             <div class="user-avatar">🌸</div>
-                            <div class="user-name"></div>
-                            <div class="user-stats"></div>
-                            <div class="user-score"></div>
+                            <div class="user-name">{{ third_place.first_name }} {{ third_place.last_name }}</div>
+                            <div class="user-stats">{{ third_place.events_count }} мероприятий</div>
+                            <div class="user-score">{{ third_place.hours }} часов</div>
                         </div>
                     </div>
+                    {% endif %}
                 </div>
 
                 <!-- Полная таблица рейтинга -->
