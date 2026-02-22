@@ -25,3 +25,22 @@ def pluralize_ru(number, forms):
         return forms[1]
     else:
         return forms[2]
+
+
+def check_user_field(text, field_name):
+    if len(text) > 20:
+        return {"error": f"Поле {field_name} не может быть длиннее 20 символов", "ok": False}
+    if len(text) < 3:
+        return {"error": f"Поле {field_name} не может быть короче 3 символов", "ok": False}
+    if " " in text:
+        return {"error": f"Поле {field_name} не может содержать пробелы", "ok": False}
+
+    alp = "abcdefghijklmnopqrstuvwxyzабвгдеёжзийклмнопрстуфхцчшщъыьюя_-"
+    bad_letters = set()
+    for letter in text:
+        if letter.lower() not in alp:
+            bad_letters.add(letter)
+    if bad_letters:
+        return {"error": f"Поле {field_name} содержит недопустимые символы: {bad_letters}", "ok": False}
+
+    return {"ok": True}

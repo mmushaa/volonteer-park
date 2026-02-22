@@ -18,6 +18,9 @@
             
             <div class="login-form">
                 <p class="error" style="color: rgb(170, 58, 58);">{{ error }}</p>
+                {% if error %}
+                    <p class="error" style="color: rgb(87, 87, 87);">Для полей <strong>Логин</strong>, <strong>Имя</strong> и <strong>Фамилия</strong> используйте только русские или английские буквы, символы "_" и "-". Без пробелов, цифр и спецсимволов (кроме "_" и "-"). Допустимая длина: от 3 до 20 символов.</p>
+                {% endif %}
                 <form id="loginForm" action="/register" method="post">
                     <div class="form-group">
                         <input class="form-control" placeholder="Логин" required name="login">

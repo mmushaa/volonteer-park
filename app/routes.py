@@ -1,5 +1,5 @@
 from app import app
-from app.utils import validate_user, pluralize_ru
+from app.utils import validate_user, pluralize_ru, check_user_field
 from app.crud import (
     get_rating_data,
     get_all_parks_data,
@@ -64,11 +64,32 @@ def register():
     if request.method == "GET":
         return render_template("register.html")
     else:
-        login = request.form.get("login")
+        login = request.form.get("login", "").strip()
         password = request.form.get("password")
         password_repeat = request.form.get("password_repeat")
-        first_name = request.form.get("first_name")
-        last_name = request.form.get("last_name")
+        first_name = request.form.get("first_name", "").strip()
+        last_name = request.form.get("last_name", "").strip()
+
+        login_check_result = check_user_field(login, 'Логин')
+        if not login_check_result.get("ok", False):
+            return render_template(
+                "register.html", error=login_check_result["error"]
+            )
+        
+        if not password or not password_repeat:
+            return render_template("register.html", error="Пароль не может быть пустым")
+        
+        first_name_check_result = check_user_field(first_name, 'Имя')
+        if not first_name_check_result.get("ok", False):
+            return render_template(
+                "register.html", error=first_name_check_result["error"]
+            )
+        
+        last_name_check_result = check_user_field(last_name, 'Фамилия')
+        if not last_name_check_result.get("ok", False):
+            return render_template(
+                "register.html", error=last_name_check_result["error"]
+            )
 
         try:
             password_hash = validate_user(login, password, password_repeat)
