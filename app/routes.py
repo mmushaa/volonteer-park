@@ -1,5 +1,5 @@
 from app import app
-from app.utils import validate_user
+from app.utils import validate_user, pluralize_ru
 from app.crud import (
     get_rating_data,
     get_all_parks_data,
@@ -138,3 +138,8 @@ def parks():
 def park(park_id):
     park = get_park_data(int(park_id))
     return render_template("park_page.html", park=park)
+
+
+@app.template_filter()
+def pluralize(value, forms):
+    return pluralize_ru(value, forms)

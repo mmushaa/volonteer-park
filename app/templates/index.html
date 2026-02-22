@@ -93,8 +93,8 @@
                             <div class="position-badge">2</div>
                             <div class="user-avatar">⭐</div>
                             <div class="user-name">{{ second_place.first_name }} {{ second_place.last_name }}</div>
-                            <div class="user-stats">{{ second_place.events_count }} мероприятий</div>
-                            <div class="user-score">{{ second_place.hours }} часов</div>
+                            <div class="user-stats">{{ second_place.events_count }} {{ second_place.events_count | pluralize(['мероприятие', 'мероприятия', 'мероприятий']) }}</div>
+                            <div class="user-score">{{ second_place.hours }} {{ second_place.hours | pluralize(['час', 'часа', 'часов']) }}</div>
                         </div>
                     </div>
                     {% endif %}
@@ -106,8 +106,8 @@
                             <div class="position-badge">1</div>
                             <div class="user-avatar">👑</div>
                             <div class="user-name">{{ first_place.first_name }} {{ first_place.last_name }}</div>
-                            <div class="user-stats">{{ first_place.events_count }} мероприятий</div>
-                            <div class="user-score">{{ first_place.hours }} часов</div>
+                            <div class="user-stats">{{ first_place.events_count }} {{ first_place.events_count | pluralize(['мероприятие', 'мероприятия', 'мероприятий']) }}</div>
+                            <div class="user-score">{{ first_place.hours }} {{ first_place.hours | pluralize(['час', 'часа', 'часов']) }}</div>
                         </div>
                     </div>
                     {% endif %}
@@ -119,8 +119,8 @@
                             <div class="position-badge">3</div>
                             <div class="user-avatar">🌸</div>
                             <div class="user-name">{{ third_place.first_name }} {{ third_place.last_name }}</div>
-                            <div class="user-stats">{{ third_place.events_count }} мероприятий</div>
-                            <div class="user-score">{{ third_place.hours }} часов</div>
+                            <div class="user-stats">{{ third_place.events_count }} {{ third_place.events_count | pluralize(['мероприятие', 'мероприятия', 'мероприятий']) }}</div>
+                            <div class="user-score">{{ third_place.hours }} {{ third_place.hours | pluralize(['час', 'часа', 'часов']) }}</div>
                         </div>
                     </div>
                     {% endif %}
