@@ -7,6 +7,7 @@
     <title>ВолонтерПарк</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
         integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/menu.css">
     <link rel="stylesheet" href="/static/login.css">
 </head>
 
@@ -25,6 +26,23 @@
         </nav>
 
         <div class="container mt-4">
+            <!-- Меню -->
+            <div class="menu-icon" id="menuButton">
+                <div class="menu-line"></div>
+                <div class="menu-line"></div>
+                <div class="menu-line"></div>
+            </div>
+            <div class="sidebar" id="sidebar">
+                <a href="/" class="menu-item">
+                    Главная
+                </a>
+                <a href="/events" class="menu-item">
+                    Выбрать событие
+                </a>
+                <a href="/parks" class="menu-item">Парки</a>
+                <a href="/logout" class="menu-item">Выйти</a>
+            </div>
+
             <div class="row">
                 <div class="col-12">
                     <div class="profile-header text-center mb-5">
@@ -80,202 +98,7 @@
         </div>
     </div>
 
-    <script>
-        let map;
-        let placemarks = [];
-
-        // Функции для навигации
-        function showLoginPage() {
-            document.getElementById('loginPage').style.display = 'flex';
-            document.getElementById('mapPage').style.display = 'none';
-            document.getElementById('profilePage').style.display = 'none';
-        }
-
-        function showMapPage() {
-            document.getElementById('loginPage').style.display = 'none';
-            document.getElementById('mapPage').style.display = 'block';
-            document.getElementById('profilePage').style.display = 'none';
-            setTimeout(initMap, 100);
-        }
-
-        function showProfilePage() {
-            document.getElementById('loginPage').style.display = 'none';
-            document.getElementById('mapPage').style.display = 'none';
-            document.getElementById('profilePage').style.display = 'block';
-            closeMenu();
-        }
-
-        function showParksPage() {
-            alert('Страница "Парки" уже открыта');
-            closeMenu();
-        }
-
-        // Показать сообщение
-        function showMessage(text) {
-            alert(text);
-        }
-
-        // Присоединиться к мероприятию
-        function joinEvent(eventId) {
-            alert('🎉 Вы успешно записались на мероприятие!');
-        }
-
-        // Фокусировка на мероприятии
-        function focusOnEvent(eventId) {
-            const eventData = getEventData(eventId);
-            if (eventData && placemarks[eventId]) {
-                map.setCenter([eventData.coords[0], eventData.coords[1]], 16);
-                placemarks[eventId].balloon.open();
-                document.querySelectorAll('.event-card').forEach(card => card.classList.remove('active'));
-                document.getElementById(`card-${eventId}`).classList.add('active');
-            }
-        }
-
-        // Данные мероприятий
-        function getEventData(eventId) {
-            const events = {
-                'gorky': {
-                    coords: [55.728955, 37.603579],
-                    title: 'Уборка в Парке Горького',
-                    time: 'Завтра, 10:00-13:00',
-                    address: 'Крымский Вал, 9',
-                    description: 'Сбор у главного входа. Инвентарь предоставляется. Обед включен.'
-                },
-                'neskuchny': {
-                    coords: [55.709683, 37.597258],
-                    title: 'Уборка в Нескучном саду',
-                    time: '15 декабря, 14:00-17:00',
-                    address: 'Ленинский проспект, 20',
-                    description: 'Уборка опавшей листвы и мусора. Работа в небольших группах.'
-                },
-                'sokolniki': {
-                    coords: [55.791348, 37.677933],
-                    title: 'Уборка в Сокольниках',
-                    time: '20 декабря, 11:00-14:00',
-                    address: 'Сокольнический Вал, 1',
-                    description: 'Расчистка дорожек от снега и уборка территории. Теплый чай предусмотрен.'
-                },
-                'izmaily': {
-                    coords: [55.787152, 37.771609],
-                    title: 'Предновогодняя уборка в Измайлово',
-                    time: '25 декабря, 12:00-15:00',
-                    address: 'Народный проспект, 17',
-                    description: 'Подготовка парка к Новому году. Украшение территории.'
-                }
-            };
-            return events[eventId];
-        }
-
-        // Инициализация карты
-        function initMap() {
-            if (typeof ymaps === 'undefined') {
-                document.getElementById('map').innerHTML = `
-                    <div style="display: flex; align-items: center; justify-content: center; height: 100%; background: #e1e5ec; color: #666; text-align: center; padding: 20px;">
-                        <div>
-                            <h4>Карта мероприятий</h4>
-                            <p>Здесь будет Яндекс Карта с мероприятиями</p>
-                        </div>
-                    </div>
-                `;
-                return;
-            }
-
-            ymaps.ready(function () {
-                map = new ymaps.Map('map', {
-                    center: [55.7558, 37.6173],
-                    zoom: 11,
-                    controls: ['zoomControl', 'fullscreenControl']
-                });
-
-                const eventIds = ['gorky', 'neskuchny', 'sokolniki', 'izmaily'];
-
-                eventIds.forEach(eventId => {
-                    const eventData = getEventData(eventId);
-                    if (eventData) {
-                        const placemark = new ymaps.Placemark(
-                            eventData.coords,
-                            {
-                                balloonContentHeader: `<div class="balloon-title">${eventData.title}</div>`,
-                                balloonContentBody: `
-                                    <div class="balloon-time">${eventData.time}</div>
-                                    <div>📍 ${eventData.address}</div>
-                                    <div style="margin-top: 10px;">${eventData.description}</div>
-                                    <button onclick="joinEvent('${eventId}')" style="margin-top: 10px; background: #8bc34a; color: white; border: none; padding: 8px 15px; border-radius: 15px; cursor: pointer;">
-                                        Записаться
-                                    </button>
-                                `,
-                                hintContent: eventData.title
-                            },
-                            {
-                                preset: 'islands#greenIcon',
-                                balloonCloseButton: true,
-                                hideIconOnBalloonOpen: false
-                            }
-                        );
-
-                        placemark.events.add('click', function () {
-                            document.querySelectorAll('.event-card').forEach(card => card.classList.remove('active'));
-                            document.getElementById(`card-${eventId}`).classList.add('active');
-                        });
-
-                        map.geoObjects.add(placemark);
-                        placemarks[eventId] = placemark;
-                    }
-                });
-            });
-        }
-
-        // Функции для меню
-        function toggleMenu() {
-            const sidebar = document.getElementById('sidebar');
-            const menuButton = document.getElementById('menuButton');
-            sidebar.classList.toggle('active');
-            menuButton.classList.toggle('active');
-        }
-
-        function closeMenu() {
-            const sidebar = document.getElementById('sidebar');
-            const menuButton = document.getElementById('menuButton');
-            sidebar.classList.remove('active');
-            menuButton.classList.remove('active');
-        }
-
-        // Обработка формы входа
-        document.getElementById('loginForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-            const email = this.querySelector('input[type="email"]').value;
-            const password = this.querySelector('input[type="password"]').value;
-
-            if (email && password) {
-                showMapPage();
-            } else {
-                alert('Пожалуйста, заполните все поля');
-            }
-        });
-
-        // Инициализация
-        document.addEventListener('DOMContentLoaded', function () {
-            showLoginPage();
-
-            const menuButton = document.getElementById('menuButton');
-            const sidebar = document.getElementById('sidebar');
-
-            if (menuButton && sidebar) {
-                menuButton.addEventListener('click', function (e) {
-                    e.stopPropagation();
-                    toggleMenu();
-                });
-
-                document.addEventListener('click', function (e) {
-                    if (sidebar.classList.contains('active') &&
-                        !sidebar.contains(e.target) &&
-                        !menuButton.contains(e.target)) {
-                        closeMenu();
-                    }
-                });
-            }
-        });
-    </script>
+    <script src="{{ url_for('static', filename='menu.js') }}"></script>
 </body>
 
 </html>

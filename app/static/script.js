@@ -1,21 +1,3 @@
-function toggleMenu() {
-    const sidebar = document.getElementById('sidebar');
-    const menuButton = document.getElementById('menuButton');
-
-    if (sidebar && menuButton) {
-        sidebar.classList.toggle('active');
-        menuButton.classList.toggle('active');
-    }
-}
-
-function closeMenu() {
-    const sidebar = document.getElementById('sidebar');
-    const menuButton = document.getElementById('menuButton');
-
-    if (sidebar) sidebar.classList.remove('active');
-    if (menuButton) menuButton.classList.remove('active');
-}
-
 function showParkHistory(parkId) {
     const pages = ['mainPage', 'profilePage', 'parksPage', 'parkHistoryPage'];
     pages.forEach(id => {
@@ -150,27 +132,6 @@ async function getRatingData() {
 // }
 
 document.addEventListener('DOMContentLoaded', function () {
-
-    const menuButton = document.getElementById('menuButton');
-    const sidebar = document.getElementById('sidebar');
-
-    if (menuButton && sidebar) {
-        menuButton.addEventListener('click', function (e) {
-            e.stopPropagation();
-            toggleMenu();
-        });
-
-        document.addEventListener('click', function (e) {
-            if (
-                sidebar.classList.contains('active') &&
-                !sidebar.contains(e.target) &&
-                !menuButton.contains(e.target)
-            ) {
-                closeMenu();
-            }
-        });
-    }
-
     loadRatingTable();
 
     const parkSearch = document.getElementById('parkSearch');
