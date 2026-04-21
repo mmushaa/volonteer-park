@@ -21,6 +21,28 @@
         </nav>
 
         <div class="container mt-4">
+            <!-- Меню -->
+            <div class="menu-icon" id="menuButton">
+                <div class="menu-line"></div>
+                <div class="menu-line"></div>
+                <div class="menu-line"></div>
+            </div>
+            <div class="sidebar" id="sidebar">
+                {% if not user_id %}
+                <a href="/login" class="menu-item">
+                    Войти
+                </a>
+                {% else %}
+                <a href="/profile" class="menu-item">
+                    Профиль
+                </a>
+                {% endif %}
+                <a href="/parks" class="menu-item">Парки</a>
+                {% if user_id %}
+                <a href="/logout" class="menu-item">Выйти</a>
+                {% endif %}
+            </div>
+            
             <div class="row">
                 <div class="col-12 text-center mb-5">
                     <h1 style="color: #2d5016;">Парки Москвы</h1>

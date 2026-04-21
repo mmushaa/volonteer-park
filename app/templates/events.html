@@ -43,7 +43,7 @@
                     Профиль
                 </a>
                 {% endif %}
-                <a href="#" class="menu-item" onclick="showParksPage()">Парки</a>
+                <a href="/parks" class="menu-item">Парки</a>
                 {% if user_id %}
                 <a href="/logout" class="menu-item">Выйти</a>
                 {% endif %}
@@ -71,7 +71,7 @@
 
                         <div class="event-card" data-lat="55.728955" data-lng="37.603579"
                             onclick="focusOnEvent('gorky')" id="card-gorky">
-                            <div class="event-date">25 ноября, 10:00-13:00</div>
+                            <div class="event-date">27 апреля, 10:00-13:00</div>
                             <h6>Уборка в Парке Горького</h6>
                             <div class="event-location">Крымский Вал, 9</div>
                             <p style="font-size: 14px; color: #555;">Сбор у главного входа. Взять с собой: пакеты,
@@ -85,7 +85,7 @@
 
                         <div class="event-card" data-lat="55.709683" data-lng="37.597258"
                             onclick="focusOnEvent('neskuchny')" id="card-neskuchny">
-                            <div class="event-date">15 декабря, 14:00-17:00</div>
+                            <div class="event-date">15 мая, 14:00-17:00</div>
                             <h6>Уборка в Нескучном саду</h6>
                             <div class="event-location">Ленинский проспект, 20</div>
                             <p style="font-size: 14px; color: #555;">Сбор у главного входа. Взять с собой: лопату.</p>
@@ -98,7 +98,7 @@
 
                         <div class="event-card" data-lat="55.791348" data-lng="37.677933"
                             onclick="focusOnEvent('sokolniki')" id="card-sokolniki">
-                            <div class="event-date">20 декабря, 11:00-14:00</div>
+                            <div class="event-date">20 мая, 11:00-14:00</div>
                             <h6>Уборка в Сокольниках</h6>
                             <div class="event-location">Сокольнический Вал, 1</div>
                             <p style="font-size: 14px; color: #555;">Сбор у главного входа. Взять с собой: лопату.</p>
@@ -111,7 +111,7 @@
 
                         <div class="event-card" data-lat="55.787152" data-lng="37.771609"
                             onclick="focusOnEvent('izmaily')" id="card-izmaily">
-                            <div class="event-date">25 декабря, 12:00-15:00</div>
+                            <div class="event-date">30 мая, 12:00-15:00</div>
                             <h6>Предновогодняя уборка в Измайлово</h6>
                             <div class="event-location">Народный проспект, 17</div>
                             <p style="font-size: 14px; color: #555;">Сбор у главного входа. Взять с собой: лопату.</p>
@@ -224,28 +224,28 @@
                 'gorky': {
                     coords: [55.728955, 37.603579],
                     title: 'Уборка в Парке Горького',
-                    time: 'Завтра, 10:00-13:00',
+                    time: '27 апреля, 10:00-13:00',
                     address: 'Крымский Вал, 9',
                     description: 'Сбор у главного входа. Инвентарь предоставляется. Обед включен.'
                 },
                 'neskuchny': {
                     coords: [55.709683, 37.597258],
                     title: 'Уборка в Нескучном саду',
-                    time: '15 декабря, 14:00-17:00',
+                    time: '15 мая, 14:00-17:00',
                     address: 'Ленинский проспект, 20',
                     description: 'Уборка опавшей листвы и мусора. Работа в небольших группах.'
                 },
                 'sokolniki': {
                     coords: [55.791348, 37.677933],
                     title: 'Уборка в Сокольниках',
-                    time: '20 декабря, 11:00-14:00',
+                    time: '20 мая, 11:00-14:00',
                     address: 'Сокольнический Вал, 1',
                     description: 'Расчистка дорожек от снега и уборка территории. Теплый чай предусмотрен.'
                 },
                 'izmaily': {
                     coords: [55.787152, 37.771609],
                     title: 'Предновогодняя уборка в Измайлово',
-                    time: '25 декабря, 12:00-15:00',
+                    time: '30 мая, 12:00-15:00',
                     address: 'Народный проспект, 17',
                     description: 'Подготовка парка к Новому году. Украшение территории.'
                 }
