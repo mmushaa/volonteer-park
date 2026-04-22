@@ -137,7 +137,23 @@
                                         <th>№</th>
                                         <th style="text-align: left;">Волонтер</th>
                                         <th>Событий</th>
-                                        <th>Часов</th>
+                                        <t
+            <!-- Меню -->
+            <div class="menu-icon" id="menuButton">
+                <div class="menu-line"></div>
+                <div class="menu-line"></div>
+                <div class="menu-line"></div>
+            </div>
+            <div class="sidebar" id="sidebar">
+                <a href="/" class="menu-item">
+                    Главная
+                </a>
+                <a href="/events" class="menu-item">
+                    Выбрать событие
+                </a>
+                <a href="/profile" class="menu-item">Профиль</a>
+                <a href="/logout" class="menu-item">Выйти</a>
+            </div>h>Часов</th>
                                     </tr>
                                 </thead>
                                 <tbody id="ratingTableBody">
@@ -212,7 +228,6 @@
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
         crossorigin="anonymous"></script>
     <script src="/static/script.js"></script>
-    <!-- <script src="/static/ar.js"></script> -->
 
     <script src="{{ url_for('static', filename='menu.js') }}"></script>
 </body>

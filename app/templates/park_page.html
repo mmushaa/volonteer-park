@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
         integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/menu.css">
     <link rel="stylesheet" href="/static/index.css">
 </head>
 
@@ -15,15 +16,39 @@
     <div class="park-history-page" id="parkHistoryPage">
         <nav class="navbar navbar-expand-lg navbar-dark" style="background: #2a6726ce;">
             <div class="container">
-                <a class="navbar-brand" href="#" onclick="window.location.href = '/'">🌿 Парки Москвы</a>
-                <div class="navbar-nav ml-auto">
-                    <button class="btn btn-outline-light btn-sm" onclick="window.location.href = '/parks'">
-                        ← Назад к паркам
-                    </button>
-                </div>
+                <a class="navbar-brand" href="/parks">🌿 Парки Москвы</a>
             </div>
         </nav>
         <div class="container mt-4">
+            <!-- Меню -->
+            <div class="menu-icon" id="menuButton">
+                <div class="menu-line"></div>
+                <div class="menu-line"></div>
+                <div class="menu-line"></div>
+            </div>
+            <div class="sidebar" id="sidebar">
+                <a href="/" class="menu-item">Главная</a>
+                <a href="/" class="menu-item">Парки</a>
+                {% if not user_id %}
+                <a href="/register" class="menu-item">
+                    Зарегистрироваться
+                </a>
+                <a href="/login" class="menu-item">
+                    Войти
+                </a>
+                {% else %}
+                <a href="/profile" class="menu-item">
+                    Профиль
+                </a>
+                <a href="/events" class="menu-item">
+                    Выбрать событие
+                </a>
+                {% endif %}
+                {% if user_id %}
+                <a href="/logout" class="menu-item">Выйти</a>
+                {% endif %}
+            </div>
+
             <div class="row">
                 <div class="col-12">
                     <div id="parkHistoryContent">
@@ -153,8 +178,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
         crossorigin="anonymous"></script>
-    <!-- <script src="/static/script.js"></script> -->
     <script src="/static/ar.js"></script>
+    <script src="/static/menu.js"></script>
 </body>
 
 </html>

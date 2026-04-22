@@ -19,7 +19,6 @@ def index():
     user_id = session.get("user_id")
 
     rating_data = get_rating_data()
-    print(rating_data[0])
     podium = rating_data[:3]
     rest = rating_data[:50]
 
@@ -151,14 +150,16 @@ def rating():
 
 @app.route("/parks")
 def parks():
+    user_id = session.get("user_id")
     parks = get_all_parks_data()
-    return render_template("parks.html", parks=parks)
+    return render_template("parks.html", parks=parks, user_id=user_id)
 
 
 @app.route("/park/<int:park_id>")
 def park(park_id):
+    user_id = session.get("user_id")
     park = get_park_data(int(park_id))
-    return render_template("park_page.html", park=park)
+    return render_template("park_page.html", park=park, user_id=user_id)
 
 
 @app.template_filter()
