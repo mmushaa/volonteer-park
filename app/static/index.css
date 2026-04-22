@@ -186,8 +186,6 @@ body {
 
 /* Таблица рейтинга */
 .rating-table-container {
-  max-width: 900px;
-  margin: 40px auto;
   background: white;
   border-radius: 15px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
@@ -386,28 +384,58 @@ body {
   }
 
   .rating-table-container {
-    margin: 20px 10px;
+    width: 100%;
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .rating-table {
-    min-width: 600px;
-    font-size: 14px;
+    width: max-content;
+    min-width: 100%;
+    /* font-size: 13px; */
+    table-layout: auto;
   }
 
   .rating-table th {
-    padding: 15px 10px;
-    font-size: 14px;
+    padding: 12px 8px;
+    /* font-size: 13px; */
+    white-space: nowrap;
   }
 
   .rating-table td {
-    padding: 15px 10px;
+    padding: 12px 8px;
+    white-space: nowrap;
   }
 
   .rating-table .user-avatar-small {
-    font-size: 20px;
-    width: 35px;
-    height: 35px;
+    font-size: 18px;
+    width: 30px;
+    height: 30px;
+    flex: 0 0 30px;
+  }
+
+  .rating-table .user-cell {
+    gap: 8px;
+  }
+
+  .rating-table .user-name {
+    white-space: nowrap;
+  }
+
+  .rating-table .position-cell {
+    width: 48px;
+  }
+
+  .rating-table th:nth-child(2),
+  .rating-table td:nth-child(2) {
+    min-width: 180px;
+  }
+
+  .rating-table th:nth-child(3),
+  .rating-table td:nth-child(3),
+  .rating-table th:nth-child(4),
+  .rating-table td:nth-child(4) {
+    min-width: 72px;
   }
 
   .bg-fon-green h1 {
