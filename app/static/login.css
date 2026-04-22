@@ -89,9 +89,16 @@ body {
   background: #f8f9fa;
 }
 
+/* Навигационная панель */
 .navbar {
   background: #2a6726ce !important;
-  height: 80px;
+  height: 60px;
+}
+
+.navbar-brand {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .map-container {

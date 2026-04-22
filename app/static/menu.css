@@ -1,13 +1,12 @@
 /* Стили меню */
 .menu-icon {
-  position: fixed;
-  top: 15px;
-  left: 20px;
+  position: absolute;
+  top: 5px;
+  left: 5px;
   width: 50px;
   height: 50px;
   cursor: pointer;
   z-index: 1000;
-  background-color: #2d5016;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -15,10 +14,17 @@
   justify-content: center;
 }
 
+.menu-icon.filled {
+  background-color: rgb(52 85 35);
+  position: fixed;
+  top: 15px;
+  left: 15px;
+}
+
 .menu-line {
   width: 70%;
   height: 6px;
-  background-color: #629d69;
+  background-color: #8bc77f;
   margin: 3px 0;
   transition: 0.3s;
   border-radius: 2px;
@@ -26,8 +32,8 @@
 
 .sidebar {
   position: fixed;
-  top: 15px;
-  left: 15px;
+  top: 5px;
+  left: 5px;
   width: 0;
   height: 0;
   background: rgba(45, 80, 22, 0.9);
@@ -80,7 +86,6 @@
 @media (max-width: 768px) {
   .sidebar.active {
     width: 180px;
-    height: 200px;
   }
 
   .menu-item {

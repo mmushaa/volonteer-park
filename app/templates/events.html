@@ -13,42 +13,30 @@
 </head>
 
 <body>
+    <!-- Меню -->
+    <div class="menu-icon" id="menuButton">
+        <div class="menu-line"></div>
+        <div class="menu-line"></div>
+        <div class="menu-line"></div>
+    </div>
+    <div class="sidebar" id="sidebar">
+        <a href="/" class="menu-item">Главная</a>
+        <a href="/profile" class="menu-item">Профиль</a>
+        <a href="/parks" class="menu-item">Парки</a>
+        <a href="/logout" class="menu-item">Выйти</a>
+    </div>
+
     <!-- Страница карты -->
     <div class="map-page" id="mapPage">
         <!-- Навигация -->
         <nav class="navbar navbar-dark">
             <div class="container">
+
                 <a class="navbar-brand" href="/">🌿 ВолонтерПарк</a>
-                <div class="navbar-nav ml-auto">
-                    <a class="btn btn-outline-light btn-sm" href="/">
-                        ← Назад
-                    </a>
-                </div>
             </div>
         </nav>
 
         <div class="container mt-4">
-            <!-- Меню -->
-            <div class="menu-icon" id="menuButton">
-                <div class="menu-line"></div>
-                <div class="menu-line"></div>
-                <div class="menu-line"></div>
-            </div>
-            <div class="sidebar" id="sidebar">
-                {% if not user_id %}
-                <a href="/login" class="menu-item">
-                    Войти
-                </a>
-                {% else %}
-                <a href="/profile" class="menu-item">
-                    Профиль
-                </a>
-                {% endif %}
-                <a href="/parks" class="menu-item">Парки</a>
-                {% if user_id %}
-                <a href="/logout" class="menu-item">Выйти</a>
-                {% endif %}
-            </div>
 
             <div class="row fade-in text-center">
                 <div class="col-12 py-5">

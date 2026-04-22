@@ -621,7 +621,9 @@ body {
   border-radius: 15px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
   cursor: pointer;
   height: 100%;
 }
@@ -991,7 +993,13 @@ body {
 /* Навигационная панель */
 .navbar {
   background: #2a6726ce !important;
-  height: 80px;
+  height: 60px;
+}
+
+.navbar-brand {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 /* Анимации */
@@ -1012,16 +1020,6 @@ body {
 
 /* Общая адаптивность */
 @media (max-width: 768px) {
-  .sidebar.active {
-    width: 180px;
-    height: 200px;
-  }
-
-  .menu-item {
-    padding: 12px 20px;
-    font-size: 16px;
-  }
-
   .audioguide-routes {
     grid-template-columns: 1fr;
   }
@@ -1040,7 +1038,21 @@ body {
   }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 685px) {
+  .navbar-brand {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .navbar .btn {
+    display: none;
+  }
+
+  .map-container {
+    width: 100%;
+  }
+
   .history-info {
     grid-template-columns: 1fr;
   }
